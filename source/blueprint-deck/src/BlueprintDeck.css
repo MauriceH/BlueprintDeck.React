@@ -1,0 +1,28 @@
+.react-flow__node {
+    width: 200px;
+    border-radius: 5px;
+    padding: 0;
+    color: #555;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 12px;
+}
+
+.react-flow__node-constantValueNode {
+    width: 200px;
+    border-radius: 5px;
+    padding: 0;
+    border: 1px solid #6b6bbb;
+    background-color: rgb(220, 233, 255);
+}
+.react-flow__node-constantValueNode > .react-flow__handle {
+    background-color: #6b6bbb;
+}
+.react-flow__node-bluePrintNode {
+    border: 1px solid #bb9e6b;
+    background-color: rgb(255, 238, 220);
+}
+.react-flow__node-activateNode {
+    border: 1px solid #6bbb88;
+    background-color: rgb(220, 255, 233);
+}
