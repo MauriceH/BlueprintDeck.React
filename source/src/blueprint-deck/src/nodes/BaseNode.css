@@ -1,0 +1,19 @@
+.baseNode {
+    display: flex
+}
+.portContainer {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    padding: 15px 0;
+    margin-left: -4px;
+}
+.leftPortContainer {
+    margin-left: -4px;
+}
+.rightPortContainer {
+    margin-right: -4px;
+}
+.contentContainer {
+    flex: 1
+}

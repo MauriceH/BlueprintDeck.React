@@ -7,9 +7,15 @@ interface RegistryPortBase {
 
 export interface RegistryNodePort extends RegistryPortBase {
     mandatory: boolean;
-    inputOutputType: number;
+    inputOutputType: PortInputOutputType;
     dataMode: number;
 }
+
+export enum PortInputOutputType {
+    Input=0,
+    Output=1
+}
+
 
 interface RegistryNodeType {
     key: string;

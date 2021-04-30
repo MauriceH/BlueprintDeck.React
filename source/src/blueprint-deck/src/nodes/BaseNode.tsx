@@ -1,71 +1,36 @@
-import React, { FC } from "react";
-import { Handle, Node, Position } from "react-flow-renderer";
-import { NodeData } from "../NodeData";
-import { NodeTitle } from "./NodeTitle";
+import React, {FC} from "react";
+import {Handle, Node, Position} from "react-flow-renderer";
+import {NodeData} from "../NodeData";
+import {NodeTitle} from "./NodeTitle";
+import {NodePort} from "./NodePort";
+import {PortInputOutputType} from "../BluePrintRegistry";
+import "./BaseNode.css";
 
-export const BaseNode: FC<
-  { node: Node<NodeData> } & React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >
-> = (props) => {
-  const { node, children, ...divProps } = props;
-  const data = node.data;
-  console.log("data", node);
-  const inputs = data?.ports
-    ?.filter((x) => x.inputOutputType === 0)
-    .map((port, idx) => {
-      return (
-        <Handle
-          style={{ position: "inherit" }}
-          key={port.key}
-          id={port.key}
-          type={"target"}
-          position={Position.Left}
-        />
-      );
-    });
-  const outputs = data?.ports
-    ?.filter((x) => x.inputOutputType === 1)
-    .map((port) => {
-      return (
-        <Handle
-          style={{ position: "inherit" }}
-          key={port.key}
-          id={port.key}
-          type={"source"}
-          position={Position.Right}
-        />
-      );
-    });
-  return (
-    <div {...divProps} style={{ display: "flex" }}>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "column",
-          gap: "10px",
-          padding: "15px 0",
-          marginLeft: "-4px",
-        }}
-      >
-        {inputs}
-      </div>
-      <div style={{ flex: 1 }}>
-        <NodeTitle label={data?.label ?? "Node"} />
-        {children}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "column",
-          gap: "10px",
-          padding: "15px 0",
-          marginRight: "-4px",
-        }}
-      >
-        {outputs}
-      </div>
-    </div>
-  );
+
+export const BaseNode: FC<{ node: Node<NodeData> } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement>> = (props) => {
+    const {node, children, ...divProps} = props;
+
+    const inputs = node.data?.ports
+        ?.filter((x) => x.inputOutputType == PortInputOutputType.Input)
+        .map(port => <NodePort key={port.key} port={port}/>);
+
+    const outputs = node.data?.ports
+        ?.filter((x) => x.inputOutputType == PortInputOutputType.Output)
+        .map(port => <NodePort key={port.key} port={port}/>);
+
+    return (
+        <div {...divProps} className={"baseNode"}>
+            <div className={"portContainer leftPortContainer"}>
+                {inputs}
+            </div>
+            <div className={"contentContainer"}>
+                <NodeTitle label={node.data?.label ?? "Node"}/>
+                {children}
+            </div>
+            <div className={"portContainer rightPortContainer"}>
+                {outputs}
+            </div>
+        </div>
+    );
 };
