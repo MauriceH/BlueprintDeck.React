@@ -1,16 +1,18 @@
 import {RegistryNodePort} from "./BluePrintRegistry";
 import {ReactNode} from "react";
-import {Node} from "react-flow-renderer";
-
-
-export type NodeType = 'Activate' | 'Node' | 'ConstantValue'
+import {Node,Connection} from "react-flow-renderer";
 
 export type ConstantValueType = 'timespan' | 'int32'
+
+export type BlueprintNodeData = Node<NodeData>;
+
+export type IsValidNodeConnection = (node: BlueprintNodeData, port: RegistryNodePort, connection: Connection) => boolean;
 
 export interface NodeData {
     label: string,
     type: string,
-    constantValueType?: ConstantValueType,
-    ports?: RegistryNodePort[]
-    nodeType?: (node: Node<NodeData>) =>ReactNode
+    constantValueDataType?: ConstantValueType,
+    ports?: RegistryNodePort[],
+    nodeType?: (node: Node<NodeData>) =>ReactNode,
+    isValidConnection: IsValidNodeConnection;
 }

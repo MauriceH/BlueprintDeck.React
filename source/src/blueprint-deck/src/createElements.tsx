@@ -1,41 +1,30 @@
-import {BluePrintRegistry} from "./BluePrintRegistry";
+import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "./BluePrintRegistry";
 import {BluePrintDesign} from "./BluePrintDesign";
-import {Elements, Handle, Position} from "react-flow-renderer";
-import {Connection, Edge, Node, NodeTypesType} from "react-flow-renderer/dist/types";
-import {ConstantValueType, NodeData} from "./NodeData";
+import {Elements} from "react-flow-renderer";
+import {Edge, Node, NodeTypesType} from "react-flow-renderer/dist/types";
+import {BlueprintNodeData, ConstantValueType, IsValidNodeConnection, NodeData} from "./NodeData";
 import ConstantValueNode from "./nodes/ConstantValueNode";
 import React, {ReactNode} from "react";
 import ActivateNode from "./nodes/ActiveateNode";
 import {BaseNode} from "./nodes/BaseNode";
 
-const isValidConnection = (connection: Connection) => connection.target === '3';
-
 
 export declare type NodeTypes = {
-    [key: string]: (node: Node<NodeData>)=>ReactNode;
+    [key: string]: (node: BlueprintNodeData) => ReactNode;
 };
 
-const CustomNode = ({id}: any) => (
-    <>
-        <Handle type="target" position={Position.Left} isValidConnection={isValidConnection}/>
-        <div>Node {id} </div>
-        <Handle type="source" position={Position.Right} isValidConnection={isValidConnection}/>
-    </>
-);
 
-export const nodeTypes: NodeTypesType = {
+export const defaultReactNodes: NodeTypesType = {
     constantValueNode: ConstantValueNode,
-    activateNode : ActivateNode,
-    'Delay' : (node:Node<NodeData>) => <BaseNode node={node}>DELAY</BaseNode>
+    activateNode: ActivateNode,
+    'Delay': (node: BlueprintNodeData) => <BaseNode node={node}>DELAY</BaseNode>
 };
 
 
-
-export const createElements = (registry: BluePrintRegistry, design?: BluePrintDesign ): Elements<NodeData> => {
+export const createElements = (registry: BluePrintRegistry, design: BluePrintDesign, isValidConnection: IsValidNodeConnection): Elements<NodeData> => {
     if (design == null) return [];
 
-    const nodeElements: Elements<NodeData> = design.nodes.map(node => {
-
+    const nodeElements = design.nodes.map(node => {
         const nodeType = registry.nodeTypes.find(x => x.key === node.nodeTypeKey)
         if (nodeType == null) return null;
         const nodeElement: Node<NodeData> = {
@@ -43,32 +32,42 @@ export const createElements = (registry: BluePrintRegistry, design?: BluePrintDe
             type: node.nodeTypeKey === 'Activate' ? 'activateNode' : node.nodeTypeKey,
             position: {x: node.location.x, y: node.location.y},
             data: {
-
                 label: node.title,
                 type: node.nodeTypeKey,
                 ports: nodeType.ports,
+                isValidConnection
             },
-            sourcePosition: Position.Right
         };
         return nodeElement;
     }).filter(x => x != null).map(x => x as Node<NodeData>) as Elements<NodeData>;
 
-    const valueElements: Elements<NodeData> = design.constantValues.map(value => {
+    const valueElements = design.constantValues.map(value => {
+        const valueRegistry = registry.constantValueNodeTypes.find(x => x.key === value.nodeTypeKey)
+        if (valueRegistry == null) return null;
+        const portRegistry = valueRegistry.port;
         const nodeElement: Node<NodeData> = {
             id: value.key,
+            type: 'constantValueNode',
             position: {x: value.location.x, y: value.location.y},
             data: {
                 label: value.title,
                 type: "ConstantValue",
-                constantValueType: value.nodeTypeKey as ConstantValueType
+                constantValueDataType: value.nodeTypeKey as ConstantValueType,
+                ports: [{
+                    key: portRegistry.key,
+                    typeId: portRegistry.typeId,
+                    dataMode: PortDataMode.WithData,
+                    inputOutputType: PortInputOutputType.Output,
+                    title: portRegistry.title,
+                    mandatory: false
+                }],
+                isValidConnection
             },
-            type: 'constantValueNode',
-            sourcePosition: Position.Right
         };
         return nodeElement
-    }).filter(x => x != null).map(x => x as Node<NodeData>) as Elements<NodeData>;
+    }).map(x => x as Node<NodeData>) as Elements<NodeData>;
 
-    const connectionElements: Elements<NodeData> = design.connections.map(value => {
+    const connectionElements = design.connections.map(value => {
         const connectionElement: Edge<NodeData> = {
             id: value.key,
             source: value.nodeFrom,
@@ -77,7 +76,7 @@ export const createElements = (registry: BluePrintRegistry, design?: BluePrintDe
             targetHandle: value.nodePortTo,
         };
         return connectionElement;
-    }).filter(x => x != null).map(x => x as Edge<NodeData>) as Elements<NodeData>;
+    }).map(x => x as Edge<NodeData>) as Elements<NodeData>;
 
     return [...nodeElements, ...valueElements, ...connectionElements];
 };
