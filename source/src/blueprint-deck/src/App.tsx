@@ -3,13 +3,13 @@ import { Node } from "react-flow-renderer";
 import "./App.css";
 import { BlueprintDeck } from "./BlueprintDeck";
 import { NodeTypes } from "./createElements";
-import { NodeData } from "./NodeData";
+import {BlueprintNodeData, NodeData} from "./NodeData";
 import { BaseNode } from "./nodes/BaseNode";
 import { TestDesign } from "./TestDesign";
 import { TestRegistry } from "./TestRegistry";
 
 const myTypes: NodeTypes = {
-  TestNode: (node: Node<NodeData>) => (
+  TestNode: (node: BlueprintNodeData) => (
     <BaseNode node={node}>
       <div>Hallo1</div>
     </BaseNode>
