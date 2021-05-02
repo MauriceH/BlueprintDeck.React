@@ -17,6 +17,7 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
     const nodeElements = design.nodes.map(node => {
         const nodeType = registry.nodeTypes.find(x => x.key === node.nodeTypeKey)
         if (nodeType == null) return null;
+
         const nodeElement: Node<NodeData> = {
             id: node.key,
             type: node.nodeTypeKey,
@@ -24,7 +25,9 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
             data: {
                 label: node.title,
                 type: node.nodeTypeKey,
-                ports: nodeType.ports,
+                ports: nodeType.ports.map(x=>{
+                    const dataType = registry.dataTypes.find(d=>d.id == x.typeId)
+                    return {...x, dataType}}),
                 isValidConnection
             },
         };
@@ -35,6 +38,8 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
         const valueRegistry = registry.constantValueNodeTypes.find(x => x.key === value.nodeTypeKey)
         if (valueRegistry == null) return null;
         const portRegistry = valueRegistry.port;
+        const dataType = registry.dataTypes.find(d=>d.id == portRegistry.typeId)
+
         const nodeElement: Node<NodeData> = {
             id: value.key,
             type: 'constantValueNode',
@@ -49,7 +54,8 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
                     dataMode: PortDataMode.WithData,
                     inputOutputType: PortInputOutputType.Output,
                     title: portRegistry.title,
-                    mandatory: false
+                    mandatory: false,
+                    dataType: dataType
                 }],
                 isValidConnection
             },

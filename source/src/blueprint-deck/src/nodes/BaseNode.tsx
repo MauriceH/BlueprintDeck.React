@@ -16,21 +16,21 @@ export type BaseNodeProps =
 export const BaseNode: FC<BaseNodeProps> = ({node, children, ...divProps}) => {
 
     const isValidConnection = useCallback((port: RegistryNodePort, connection: Connection) => {
-        if(node.data?.isValidConnection == null) return true;
-        return node.data.isValidConnection(node,port,connection);
+        if (node.data?.isValidConnection == null) return true;
+        return node.data.isValidConnection(node, port, connection);
     }, [node]);
 
     const inputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Input)
         .map(port => <NodePort key={port.key}
                                port={port}
-                               isValidConnection={isValidConnection}/>);
+                               isValidConnection={isValidConnection} typeVisible={true}/>);
 
     const outputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Output)
         .map(port => <NodePort key={port.key}
                                port={port}
-                               isValidConnection={isValidConnection}/>);
+                               isValidConnection={isValidConnection} typeVisible={true}/>);
 
     return (
         <div {...divProps} className={"baseNode"}>
