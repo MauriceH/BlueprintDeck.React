@@ -1,0 +1,21 @@
+.port-type-container {
+    width: 150px;
+    display: flex;
+    position: absolute;
+    margin-top: -9px;
+}
+.port-type-container-left {
+    left: -156px;
+    justify-content: flex-end;
+}
+.port-type-container-right {
+    right: -156px;
+
+}
+.port-type {
+    border-radius: 3px;
+    border: solid 1px #6d6d6d;
+    padding: 1px 3px;
+    background-color: #e8e8e8;
+    font-size: 0.8em;
+}
