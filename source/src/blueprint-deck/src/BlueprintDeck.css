@@ -3,10 +3,13 @@
     border-radius: 5px;
     padding: 0;
     color: #555;
-    border: 1px solid #ddd;
+    border: 1px solid #dbc8b6;
     text-align: center;
     font-size: 12px;
     background-color: #f8edde;
+}
+.selected {
+    border: 1px solid #ff5050 !important;
 }
 
 .react-flow__node-constantValueNode {

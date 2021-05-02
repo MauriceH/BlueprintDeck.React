@@ -9,13 +9,14 @@ import ReactFlow, {
     MiniMap,
     OnLoadParams
 } from "react-flow-renderer";
-import React, {useEffect, useState} from "react";
+import React, {MouseEvent as ReactMouseEvent, useEffect, useState} from "react";
 import {BluePrintRegistry} from "./BluePrintRegistry";
 import {BluePrintDesign} from "./BluePrintDesign";
 import {createElements, NodeTypes} from "./nodes/createElements";
 import {NodeData} from "./NodeData";
 import {checkValidConnection} from "./nodes/checkValidConnection";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
+import {OnConnectStartParams} from "react-flow-renderer/dist/types";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -56,7 +57,16 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         onConnect={onConnect}
         snapGrid={[20, 20]}
         snapToGrid={true}
-
+        onConnectStart={(event: ReactMouseEvent, params: OnConnectStartParams)=>{
+            console.log('onConnectStart')
+        }}
+        onConnectEnd={(event: MouseEvent)=>{
+            console.log('onConnectEnd')
+        }}
+        onConnectStop={(event: MouseEvent)=>{
+            console.log('onConnectStop')
+        }}
+        elementsSelectable={true}
     >
         <Background variant={BackgroundVariant.Lines} gap={20}/>
         <MiniMap/>
