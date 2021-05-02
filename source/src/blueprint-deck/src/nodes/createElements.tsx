@@ -1,23 +1,13 @@
-import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "./BluePrintRegistry";
-import {BluePrintDesign} from "./BluePrintDesign";
+import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../BluePrintRegistry";
+import {BluePrintDesign} from "../BluePrintDesign";
 import {Elements} from "react-flow-renderer";
-import {Edge, Node, NodeTypesType} from "react-flow-renderer/dist/types";
-import {BlueprintNodeData, ConstantValueType, IsValidNodeConnection, NodeData} from "./NodeData";
-import ConstantValueNode from "./nodes/ConstantValueNode";
+import {Edge, Node} from "react-flow-renderer/dist/types";
+import {BlueprintNodeData, ConstantValueType, IsValidNodeConnection, NodeData} from "../NodeData";
 import React, {ReactNode} from "react";
-import ActivateNode from "./nodes/ActiveateNode";
-import {BaseNode} from "./nodes/BaseNode";
 
 
 export declare type NodeTypes = {
     [key: string]: (node: BlueprintNodeData) => ReactNode;
-};
-
-
-export const defaultReactNodes: NodeTypesType = {
-    constantValueNode: ConstantValueNode,
-    activateNode: ActivateNode,
-    'Delay': (node: BlueprintNodeData) => <BaseNode node={node}>DELAY</BaseNode>
 };
 
 
@@ -29,7 +19,7 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
         if (nodeType == null) return null;
         const nodeElement: Node<NodeData> = {
             id: node.key,
-            type: node.nodeTypeKey === 'Activate' ? 'activateNode' : node.nodeTypeKey,
+            type: node.nodeTypeKey,
             position: {x: node.location.x, y: node.location.y},
             data: {
                 label: node.title,

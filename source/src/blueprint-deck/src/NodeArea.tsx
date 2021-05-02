@@ -7,14 +7,15 @@ import ReactFlow, {
     Edge,
     Elements,
     MiniMap,
-    Node,
     OnLoadParams
 } from "react-flow-renderer";
-import React, {useCallback, useEffect, useState} from "react";
-import {BluePrintRegistry, PortDataMode, PortInputOutputType, RegistryNodePort} from "./BluePrintRegistry";
+import React, {useEffect, useState} from "react";
+import {BluePrintRegistry} from "./BluePrintRegistry";
 import {BluePrintDesign} from "./BluePrintDesign";
-import {createElements, defaultReactNodes, NodeTypes} from "./createElements";
-import {BlueprintNodeData, NodeData} from "./NodeData";
+import {createElements, NodeTypes} from "./nodes/createElements";
+import {NodeData} from "./NodeData";
+import {checkValidConnection} from "./nodes/checkValidConnection";
+import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -32,26 +33,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
     const onConnect = (connection: Edge | Connection) => setElements((els) => addEdge(connection, els));
 
     const refElements = React.useRef(elements);
-    const isValidConnection = useCallback((node: BlueprintNodeData, port: RegistryNodePort, connection: Connection) => {
-
-        const checkId = connection.source == node.id ? connection.target : connection.source;
-        const checkPortId = connection.source == node.id ? connection.targetHandle : connection.targetHandle;
-        const checkPortDirection = port.inputOutputType == PortInputOutputType.Input ? PortInputOutputType.Output : PortInputOutputType.Input;
-
-        const checkNode = refElements.current.find(e => e.id == checkId) as Node<NodeData>;
-        if (checkNode?.data?.ports == null) return false;
-
-
-        const checkPort = checkNode.data.ports.find(p => p.key == checkPortId && p.inputOutputType == checkPortDirection);
-        if (checkPort == null) return false;
-
-        if (checkPort.dataMode != port.dataMode) return false;
-        if (port.dataMode == PortDataMode.None) return true;
-
-        if (checkPort.typeId != checkPort.typeId) return false;
-
-        return true;
-    }, [elements, registry]);
+    const isValidConnection = checkValidConnection(refElements, registry);
 
     useEffect(() => {
         let designData = design;

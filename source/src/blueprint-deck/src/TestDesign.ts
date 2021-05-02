@@ -44,34 +44,34 @@ export const TestDesign : BluePrintDesign = {
         }
     ],
     connections: [
-        {
-            key: "ActivateToDelay",
-            nodeFrom: "Activate1",
-            nodePortFrom: "Event",
-            nodeTo: "Delay1",
-            nodePortTo: "Input"
-        },
-        {
-            key: "DelayToTest1",
-            nodeFrom: "Delay1",
-            nodePortFrom: "Output",
-            nodeTo: "TestNode1",
-            nodePortTo: "Trigger"
-        },
-        {
-            key: "DelayToTest2",
-            nodeFrom: "Activate1",
-            nodePortFrom: "Event",
-            nodeTo: "TestNode2",
-            nodePortTo: "Trigger"
-        },
-        {
-            key: "DurationToDelay",
-            nodeFrom: "Duration1",
-            nodePortFrom: "value",
-            nodeTo: "Delay1",
-            nodePortTo: "Duration"
-        }
+        // {
+        //     key: "ActivateToDelay",
+        //     nodeFrom: "Activate1",
+        //     nodePortFrom: "Event",
+        //     nodeTo: "Delay1",
+        //     nodePortTo: "Input"
+        // },
+        // {
+        //     key: "DelayToTest1",
+        //     nodeFrom: "Delay1",
+        //     nodePortFrom: "Output",
+        //     nodeTo: "TestNode1",
+        //     nodePortTo: "Trigger"
+        // },
+        // // {
+        // //     key: "DelayToTest2",
+        // //     nodeFrom: "Activate1",
+        // //     nodePortFrom: "Event",
+        // //     nodeTo: "TestNode2",
+        // //     nodePortTo: "Trigger"
+        // // },
+        // {
+        //     key: "DurationToDelay",
+        //     nodeFrom: "Duration1",
+        //     nodePortFrom: "value",
+        //     nodeTo: "Delay1",
+        //     nodePortTo: "Duration"
+        // }
     ],
     constantValues: [
         {
