@@ -6,6 +6,7 @@
     border: 1px solid #ddd;
     text-align: center;
     font-size: 12px;
+    background-color: #f8edde;
 }
 
 .react-flow__node-constantValueNode {
@@ -22,7 +23,7 @@
     border: 1px solid #bb9e6b;
     background-color: rgb(255, 238, 220);
 }
-.react-flow__node-activateNode {
+.react-flow__node-Activate {
     border: 1px solid #6bbb88;
     background-color: rgb(220, 255, 233);
 }
