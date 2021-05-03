@@ -2,7 +2,7 @@ import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../BluePrint
 import {BluePrintDesign} from "../BluePrintDesign";
 import {Elements} from "react-flow-renderer";
 import {Edge, Node} from "react-flow-renderer/dist/types";
-import {BlueprintNodeData, ConstantValueType, IsValidNodeConnection, NodeData} from "../NodeData";
+import {BlueprintNodeData, ConstantValueType, NodeData} from "../NodeData";
 import React, {ReactNode} from "react";
 
 
@@ -11,7 +11,7 @@ export declare type NodeTypes = {
 };
 
 
-export const createElements = (registry: BluePrintRegistry, design: BluePrintDesign, isValidConnection: IsValidNodeConnection): Elements<NodeData> => {
+export const createElements = (registry: BluePrintRegistry, design: BluePrintDesign): Elements<NodeData> => {
     if (design == null) return [];
 
     const nodeElements = design.nodes.map(node => {
@@ -28,7 +28,6 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
                 ports: nodeType.ports.map(x=>{
                     const dataType = registry.dataTypes.find(d=>d.id == x.typeId)
                     return {...x, dataType}}),
-                isValidConnection
             },
         };
         return nodeElement;
@@ -57,7 +56,6 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
                     mandatory: false,
                     dataType: dataType
                 }],
-                isValidConnection
             },
         };
         return nodeElement
