@@ -1,5 +1,5 @@
-import {Connection, Handle, Position} from "react-flow-renderer";
-import React, {useCallback} from "react";
+import {Handle, Position} from "react-flow-renderer";
+import React from "react";
 import {PortInputOutputType, RegistryNodePort} from "../BluePrintRegistry";
 import './NodePort.css'
 import {HandleProps} from "react-flow-renderer/dist/types";
@@ -7,11 +7,10 @@ import {useCheckValidConnection} from "./useCheckValidConnection";
 
 export type NodePortProps = {
     port: RegistryNodePort,
-    isValidConnection?: (port: RegistryNodePort, connection: Connection) => boolean;
     typeVisible?: boolean
 } & Partial<React.NamedExoticComponent<HandleProps & Omit<React.HTMLAttributes<HTMLDivElement>, "id">>>;
 
-export function NodePort({typeVisible, isValidConnection, port,...props}: NodePortProps) {
+export function NodePort({typeVisible, port, ...props}: NodePortProps) {
 
     const checkConnection = useCheckValidConnection(port);
 

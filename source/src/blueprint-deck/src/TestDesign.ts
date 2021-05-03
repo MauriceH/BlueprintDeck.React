@@ -44,13 +44,13 @@ export const TestDesign : BluePrintDesign = {
         }
     ],
     connections: [
-        // {
-        //     key: "ActivateToDelay",
-        //     nodeFrom: "Activate1",
-        //     nodePortFrom: "Event",
-        //     nodeTo: "Delay1",
-        //     nodePortTo: "Input"
-        // },
+        {
+            key: "ActivateToDelay",
+            nodeFrom: "Activate1",
+            nodePortFrom: "Event",
+            nodeTo: "Delay1",
+            nodePortTo: "Input"
+        },
         // {
         //     key: "DelayToTest1",
         //     nodeFrom: "Delay1",

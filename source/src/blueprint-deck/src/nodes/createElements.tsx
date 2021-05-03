@@ -1,6 +1,6 @@
 import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../BluePrintRegistry";
 import {BluePrintDesign} from "../BluePrintDesign";
-import {Elements} from "react-flow-renderer";
+import {ArrowHeadType, Elements} from "react-flow-renderer";
 import {Edge, Node} from "react-flow-renderer/dist/types";
 import {BlueprintNodeData, ConstantValueType, NodeData} from "../NodeData";
 import React, {ReactNode} from "react";
@@ -68,6 +68,8 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
             sourceHandle: value.nodePortFrom,
             target: value.nodeTo,
             targetHandle: value.nodePortTo,
+            animated: false,
+            style: {strokeWidth: '2px'}
         };
         return connectionElement;
     }).map(x => x as Edge<NodeData>) as Elements<NodeData>;

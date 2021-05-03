@@ -5,6 +5,7 @@ import {NodeData} from "../NodeData";
 
 export const useCheckValidConnection = (port: RegistryNodePort) => {
     const nodes = useStoreState((store) => store.nodes);
+    const edges = useStoreState((store) => store.edges);
 
     return useCallback((connection: Connection) => {
 
@@ -21,16 +22,11 @@ export const useCheckValidConnection = (port: RegistryNodePort) => {
         });
         if (checkPort == null) return false;
         if (checkPort.dataMode != port.dataMode) return false;
+
         if(checkPort.inputOutputType == PortInputOutputType.Input) {
-            if(nodes.find(x=> {
-                let possibleEdge = x as any as Edge;
-                return possibleEdge.target == checkNode.id && possibleEdge.targetHandle == checkPort.key;
-            })) return false;
+            if(edges.find(x=> x.target == checkNode.id && x.targetHandle == checkPort.key)) return false;
         } else {
-            if(nodes.find(x=> {
-                let possibleEdge = x as any as Edge;
-                return possibleEdge.source == checkNode.id && possibleEdge.sourceHandle == checkPort.key;
-            })) return false;
+            if(edges.find(x => x.source == checkNode.id && x.sourceHandle == checkPort.key)) return false;
         }
 
         if (port.dataMode == PortDataMode.None) return true;

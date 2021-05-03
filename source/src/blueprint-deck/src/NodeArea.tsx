@@ -1,5 +1,6 @@
 import ReactFlow, {
     addEdge,
+    ArrowHeadType,
     Background,
     BackgroundVariant,
     Connection,
@@ -15,6 +16,7 @@ import {BluePrintDesign} from "./BluePrintDesign";
 import {createElements, NodeTypes} from "./nodes/createElements";
 import {NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
+import {v4 as uuid} from "uuid"
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -29,7 +31,18 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
 
     const [isConnectable, setConnectable] = useState(true);
     const [elements, setElements] = useState<Elements<NodeData>>([]);
-    const onConnect = (connection: Edge | Connection) => setElements((els) => addEdge(connection, els));
+    const onConnect = (connection: Edge | Connection) => {
+        const edge : Edge<NodeData> = {
+            id: uuid(),
+            source: connection.source!,
+            target: connection.target!,
+            sourceHandle: connection.sourceHandle,
+            targetHandle: connection.targetHandle,
+            animated: false,
+            style: {strokeWidth: '2px'}
+        }
+        setElements((els) => addEdge(edge, els));
+    };
 
 
     useEffect(() => {
@@ -48,7 +61,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         nodesConnectable={isConnectable}
         nodeTypes={{...defaultReactNodes, ...nodeTypes}}
         onConnect={onConnect}
-        snapGrid={[20, 20]}
+        snapGrid={[10, 10]}
         snapToGrid={true}
         onConnectEnd={(event: MouseEvent) => {
             console.log('onConnectEnd')
@@ -58,7 +71,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         }}
         elementsSelectable={true}
     >
-        <Background variant={BackgroundVariant.Lines} gap={20}/>
+        <Background variant={BackgroundVariant.Dots} gap={10}/>
         <MiniMap/>
         <Controls/>
     </ReactFlow>;
