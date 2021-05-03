@@ -25,8 +25,10 @@ export const useCheckValidConnection = (port: RegistryNodePort) => {
 
         if(checkPort.inputOutputType == PortInputOutputType.Input) {
             if(edges.find(x=> x.target == checkNode.id && x.targetHandle == checkPort.key)) return false;
+            if(edges.find(x=> x.source == connection.source && x.sourceHandle == connection.sourceHandle)) return false;
         } else {
             if(edges.find(x => x.source == checkNode.id && x.sourceHandle == checkPort.key)) return false;
+            if(edges.find(x => x.target == connection.target && x.targetHandle == connection.targetHandle)) return false;
         }
 
         if (port.dataMode == PortDataMode.None) return true;

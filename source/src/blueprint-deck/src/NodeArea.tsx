@@ -1,9 +1,9 @@
 import ReactFlow, {
     addEdge,
-    ArrowHeadType,
     Background,
     BackgroundVariant,
     Connection,
+    ConnectionLineType,
     Controls,
     Edge,
     Elements,
@@ -17,6 +17,7 @@ import {createElements, NodeTypes} from "./nodes/createElements";
 import {NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
+import {connectionStyle} from "./defaultConnectionStyle";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -39,7 +40,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
             sourceHandle: connection.sourceHandle,
             targetHandle: connection.targetHandle,
             animated: false,
-            style: {strokeWidth: '2px'}
+            style: {...connectionStyle}
         }
         setElements((els) => addEdge(edge, els));
     };
@@ -61,6 +62,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         nodesConnectable={isConnectable}
         nodeTypes={{...defaultReactNodes, ...nodeTypes}}
         onConnect={onConnect}
+        connectionLineStyle={{...connectionStyle}}
         snapGrid={[10, 10]}
         snapToGrid={true}
         onConnectEnd={(event: MouseEvent) => {
