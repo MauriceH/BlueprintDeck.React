@@ -1,10 +1,10 @@
 import React, {FC} from "react";
-import {BlueprintNodeData} from "../NodeData";
+import {BlueprintNodeData, NodeData} from "../NodeData";
 import {NodeTitle} from "./NodeTitle";
 import {NodePort} from "./NodePort";
 import {PortInputOutputType} from "../BluePrintRegistry";
 import "./BaseNode.css";
-import {useStoreState} from "react-flow-renderer";
+import {useStoreState, Edge} from "react-flow-renderer";
 
 
 export type BaseNodeProps =
@@ -21,15 +21,21 @@ export const BaseNode: FC<BaseNodeProps> = ({node, children, ...divProps}) => {
 
     const inputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Input)
-        .map(port => <NodePort key={port.key}
-                               port={port}
-                               typeVisible={typeVisible}/>);
+        .map(port => {
+            const nodeTypeVisible = typeVisible || selectedElements?.find(x => (x as Edge<NodeData>).target == node.id && (x as Edge<NodeData>).targetHandle == port.key) != null
+            return <NodePort key={port.key}
+                             port={port}
+                             typeVisible={nodeTypeVisible}/>;
+        });
 
     const outputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Output)
-        .map(port => <NodePort key={port.key}
-                               port={port}
-                               typeVisible={typeVisible}/>);
+        .map(port => {
+            const nodeTypeVisible = typeVisible || selectedElements?.find(x => (x as Edge<NodeData>).source == node.id && (x as Edge<NodeData>).sourceHandle == port.key) != null
+            return <NodePort key={port.key}
+                             port={port}
+                             typeVisible={nodeTypeVisible}/>;
+        });
 
     return (
         <div {...divProps} className={"baseNode"}>
