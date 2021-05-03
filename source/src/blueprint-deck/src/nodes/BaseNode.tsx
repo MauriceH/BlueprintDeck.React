@@ -4,6 +4,7 @@ import {NodeTitle} from "./NodeTitle";
 import {NodePort} from "./NodePort";
 import {PortInputOutputType} from "../BluePrintRegistry";
 import "./BaseNode.css";
+import {useStoreState} from "react-flow-renderer";
 
 
 export type BaseNodeProps =
@@ -14,17 +15,21 @@ export type BaseNodeProps =
 
 export const BaseNode: FC<BaseNodeProps> = ({node, children, ...divProps}) => {
 
+    const selectedElements = useStoreState((store) => store.selectedElements);
+
+    const typeVisible = selectedElements?.find(x=>x.id == node.id) != null;
+
     const inputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Input)
         .map(port => <NodePort key={port.key}
                                port={port}
-                               typeVisible={false}/>);
+                               typeVisible={typeVisible}/>);
 
     const outputs = node.data?.ports
         ?.filter((x) => x.inputOutputType == PortInputOutputType.Output)
         .map(port => <NodePort key={port.key}
                                port={port}
-                               typeVisible={false}/>);
+                               typeVisible={typeVisible}/>);
 
     return (
         <div {...divProps} className={"baseNode"}>

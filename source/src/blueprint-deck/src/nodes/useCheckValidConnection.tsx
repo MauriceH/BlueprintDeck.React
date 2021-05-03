@@ -7,6 +7,7 @@ export const useCheckValidConnection = (port: RegistryNodePort) => {
     const nodes = useStoreState((store) => store.nodes);
     const edges = useStoreState((store) => store.edges);
 
+
     return useCallback((connection: Connection) => {
 
         const checkId = connection.sourceHandle == port.key ? connection.target : connection.source;
