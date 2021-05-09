@@ -3,7 +3,7 @@
 }
 .port-unconnectable {
     position: absolute;
-    background-color: #8e2f2f;
+    background-color: #c92e2e;
 }
 
 .port-suggestion:before {
@@ -27,7 +27,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    background-color: #6bbb88;
+    background-color: #31d970;
     border-radius: 15px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.74);
     animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
