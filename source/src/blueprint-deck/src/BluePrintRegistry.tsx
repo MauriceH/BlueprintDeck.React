@@ -23,7 +23,7 @@ export enum PortDataMode {
 }
 
 
-interface RegistryNodeType {
+export interface RegistryNodeType {
     key: string;
     title: string;
     ports: RegistryNodePort[];

@@ -1,7 +1,7 @@
 import React from "react";
 import {useStoreState} from "react-flow-renderer";
-import {BlueprintNodeData} from "../NodeData";
-import {PortInputOutputType} from "../BluePrintRegistry";
+import {BlueprintNodeData} from "../../NodeData";
+import {PortInputOutputType} from "../../BluePrintRegistry";
 
 
 const PropertySection = ({title}:{title: string}) => {
@@ -26,20 +26,20 @@ export const SelectionPropertyContent = () => {
 
     return <>
         <PropertySection title={"Properties"}/>
-        <div><label>Title:</label>{node.data?.label}</div>
-        <div><label>Id:</label>{node.id}</div>
+        <div><label style={{width: '80px', display: 'inline-block', textAlign: "left"}}>Title:</label>{node.data?.label}</div>
+        <div><label style={{width: '80px', display: 'inline-block', textAlign: "left"}}>Id:</label>{node.id}</div>
         <PropertySection title={"Input-Ports"}/>
 
         {
-            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Input).map(port => <>
-                <div key={port.key}><label style={{width: '150px'}}>{port.title}</label></div>
-            </>)
+            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Input).map(port =>
+                <div key={"input-" + port.key}><label >{port.title}</label></div>
+            )
         }
         <PropertySection title={"Output-Ports"}/>
         {
-            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Output).map(port => <>
-                <div key={port.key}><label>{port.title}</label></div>
-            </>)
+            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Output).map(port =>
+                <div key={"output-" + port.key}><label>{port.title}</label></div>
+            )
         }
     </>
 }

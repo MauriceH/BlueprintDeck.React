@@ -18,6 +18,7 @@
 
 Label {
     font-weight: bold;
+    font-size: 0.9em;
 }
 
 .react-flow__node-constantValueNode {
