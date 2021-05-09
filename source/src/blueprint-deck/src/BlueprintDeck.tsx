@@ -1,7 +1,7 @@
 import {NodeArea, NodeAreaOptions} from "./NodeArea";
-import React from "react";
+import React, {useContext} from "react";
 import './BlueprintDeck.css';
-import {NodeTypesType} from "react-flow-renderer/dist/types";
+import {RegistryContext} from "./RegistryContext";
 
 export interface BlueprintDeckOptions extends NodeAreaOptions {
 
@@ -11,6 +11,8 @@ export interface BlueprintDeckOptions extends NodeAreaOptions {
 export const BlueprintDeck = (options: BlueprintDeckOptions) => {
     return (
         <div style={{width: '100%', height: '100vh'}}>
-            <NodeArea {...options}/>
+            <RegistryContext.Provider value={options.registry}>
+                <NodeArea {...options}/>
+            </RegistryContext.Provider>
         </div>)
 }

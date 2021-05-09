@@ -8,8 +8,17 @@
     font-size: 12px;
     background-color: #f8edde;
 }
+.react-flow__renderer {
+    position: inherit;
+    flex: 0 1 auto;
+}
 .selected {
     border: 1px solid #ff5050 !important;
+}
+
+Label {
+    font-weight: bold;
+    font-size: 0.9em;
 }
 
 .react-flow__node-constantValueNode {
