@@ -8,5 +8,5 @@ import React from "react";
 export const defaultReactNodes: NodeTypesType = {
     constantValueNode: ConstantValueNode,
     'Activate': ActivateNode,
-    'Delay': (node: BlueprintNodeData) => <BaseNode node={node}>DELAY</BaseNode>
+    'Delay': (node: BlueprintNodeData) => <BaseNode node={node}/>
 };

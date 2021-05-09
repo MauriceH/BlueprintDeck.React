@@ -9,9 +9,7 @@ import {TestRegistry} from "./TestRegistry";
 
 const myTypes: NodeTypes = {
   TestNode: (node: BlueprintNodeData) => (
-    <BaseNode node={node}>
-        TestMe
-    </BaseNode>
+    <BaseNode node={node}/>
   ),
 };
 
