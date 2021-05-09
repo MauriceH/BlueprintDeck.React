@@ -6,7 +6,7 @@ import {BaseNode} from "../BaseNode";
 
 const TimeSpanConstantValueContent = ({ node }: { node: Node<NodeData> }) => {
   return (
-    <div style={{ marginBottom: "10px" }}>
+    <div style={{ marginTop: "15px", marginBottom: '25px' }}>
       <input type={"time"} step={2} />
     </div>
   );
@@ -14,8 +14,8 @@ const TimeSpanConstantValueContent = ({ node }: { node: Node<NodeData> }) => {
 
 const Int32ConstantValueContent = ({ node }: { node: Node<NodeData> }) => {
   return (
-    <div style={{ marginBottom: "10px" }}>
-      <input type={"number"} />
+    <div style={{ marginTop: "15px", marginBottom: '25px' }}>
+      <input type={"number"} style={{width: '80px'}} />
     </div>
   );
 };

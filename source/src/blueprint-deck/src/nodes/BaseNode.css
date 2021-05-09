@@ -5,7 +5,7 @@
     display: flex;
     flex-flow: column;
     gap: 15px;
-    padding: 15px 0;
+    padding: 35px 0 20px 0;
     margin-left: -4px;
 }
 .leftPortContainer {
@@ -16,4 +16,12 @@
 }
 .contentContainer {
     flex: 1
+}
+
+.node-type-container {
+    position: absolute;
+    bottom: 1px;
+    right: 3px;
+    font-size: 0.70em;
+    color: #999;
 }

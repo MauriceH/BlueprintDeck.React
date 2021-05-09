@@ -19,3 +19,22 @@
     background-color: #e8e8e8;
     font-size: 0.8em;
 }
+.port-title-container {
+    width: 50px;
+    display: flex;
+    position: absolute;
+    margin-top: -16px;
+}
+.port-title-container-left {
+    left: 5px;
+
+}
+.port-title-container-right {
+    right: 5px;
+    justify-content: flex-end;
+}
+.port-title {
+    padding: 1px 3px;
+    font-size: 0.8em;
+}
+

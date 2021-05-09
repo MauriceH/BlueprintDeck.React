@@ -49,6 +49,7 @@ export const BaseNode: FC<BaseNodeProps> = ({node, children, ...divProps}) => {
             <div className={"portContainer rightPortContainer"}>
                 {outputs}
             </div>
+            <div className={"node-type-container"}>{node.data?.type}</div>
         </div>
     );
 };

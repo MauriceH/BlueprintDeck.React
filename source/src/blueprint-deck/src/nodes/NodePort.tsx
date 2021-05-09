@@ -19,6 +19,7 @@ export function NodePort({typeVisible, port, ...props}: NodePortProps) {
     const position = isInput ? Position.Left : Position.Right;
     const containerCssName = port.inputOutputType == PortInputOutputType.Input ? 'left' : 'right'
     const typeTitle = port.dataType?.title ?? 'Action';
+    const portTitle = port.title ?? 'Action';
 
 
     return <div>
@@ -33,5 +34,8 @@ export function NodePort({typeVisible, port, ...props}: NodePortProps) {
             position={position}
             isValidConnection={checkConnection}
         />
+        <div className={"port-title-container port-title-container-" + containerCssName}>
+            <div className={"port-title"}>{portTitle}</div>
+        </div>
     </div>;
 }
