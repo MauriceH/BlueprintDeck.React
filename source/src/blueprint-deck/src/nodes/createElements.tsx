@@ -65,6 +65,7 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
     const connectionElements = design.connections.map(value => {
         const connectionElement: Edge<NodeData> = {
             id: value.key,
+            type: 'connection',
             source: value.nodeFrom,
             sourceHandle: value.nodePortFrom,
             target: value.nodeTo,

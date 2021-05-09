@@ -3,7 +3,6 @@ import ReactFlow, {
     Background,
     BackgroundVariant,
     Connection,
-    ConnectionLineType,
     Controls,
     Edge,
     Elements,
@@ -18,6 +17,7 @@ import {NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
+import {PropertyPanel} from "./properties/PropertyPanel";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -33,7 +33,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
     const [isConnectable, setConnectable] = useState(true);
     const [elements, setElements] = useState<Elements<NodeData>>([]);
     const onConnect = (connection: Edge | Connection) => {
-        const edge : Edge<NodeData> = {
+        const edge: Edge<NodeData> = {
             id: uuid(),
             source: connection.source!,
             target: connection.target!,
@@ -56,25 +56,23 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
     }, [setElements, registry, design])
 
 
-    return <ReactFlow
-        onLoad={onLoad}
-        elements={elements}
-        nodesConnectable={isConnectable}
-        nodeTypes={{...defaultReactNodes, ...nodeTypes}}
-        onConnect={onConnect}
-        connectionLineStyle={{...connectionStyle}}
-        snapGrid={[10, 10]}
-        snapToGrid={true}
-        onConnectEnd={(event: MouseEvent) => {
-            console.log('onConnectEnd')
-        }}
-        onConnectStop={(event: MouseEvent) => {
-            console.log('onConnectStop')
-        }}
-        elementsSelectable={true}
-    >
-        <Background variant={BackgroundVariant.Dots} gap={10}/>
-        <MiniMap/>
-        <Controls/>
-    </ReactFlow>;
+    return <div style={{width: '100%', height: '100%', display: 'flex'}}>
+        <ReactFlow
+            onLoad={onLoad}
+            elements={elements}
+            nodesConnectable={isConnectable}
+            nodeTypes={{...defaultReactNodes, ...nodeTypes}}
+            onConnect={onConnect}
+            connectionLineStyle={{...connectionStyle}}
+            snapGrid={[10, 10]}
+            snapToGrid={true}
+            elementsSelectable={true}
+            style={{display: 'flex'}}
+        >
+            <Background variant={BackgroundVariant.Dots} gap={10}/>
+            <Controls/>
+            <PropertyPanel/>
+        </ReactFlow>
+
+    </div>;
 };
