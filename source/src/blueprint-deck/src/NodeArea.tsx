@@ -17,7 +17,7 @@ import {NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
-import {PropertyPanel} from "./properties/PropertyPanel";
+import {SidePanel} from "./side-panel/SidePanel";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -71,7 +71,7 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         >
             <Background variant={BackgroundVariant.Dots} gap={10}/>
             <Controls/>
-            <PropertyPanel/>
+            <SidePanel/>
         </ReactFlow>
 
     </div>;
