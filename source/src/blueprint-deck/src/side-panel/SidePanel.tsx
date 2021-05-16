@@ -4,8 +4,9 @@ import {SelectionPropertyContent} from "./properties/SelectionPropertyContent";
 import {TabHeader} from "./TabHeader";
 import {NodePool} from "./node-pool/NodePool";
 import {PropertyPane} from "./properties/PropertyPane";
+import {ValuePool} from "./node-pool/ValuePool";
 
-type sidePaneTab = 'properties' | 'nodepool'
+type sidePaneTab = 'properties' | 'nodepool' | 'valuepool'
 
 export const SidePanel = () => {
 
@@ -34,9 +35,11 @@ export const SidePanel = () => {
                        onClick={() => headerClick("properties")}/>
             <div style={{width: '1px', height: '80%', backgroundColor: '#eee', alignSelf: 'center'}}/>
             <TabHeader title={'Nodepool'} active={activateTab == 'nodepool'} onClick={() => headerClick("nodepool")}/>
+            <TabHeader title={'Valuepool'} active={activateTab == 'valuepool'} onClick={() => headerClick("valuepool")}/>
         </div>
         {(activateTab == "properties") && <PropertyPane />}
         {(activateTab == "nodepool") && <NodePool/>}
+        {(activateTab == "valuepool") && <ValuePool/>}
         <div style={{alignSelf: "center", flex: '0 0 auto'}}>
             <MiniMap style={{position: 'inherit'}}/>
         </div>

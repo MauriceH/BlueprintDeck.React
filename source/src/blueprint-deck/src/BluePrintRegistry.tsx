@@ -35,7 +35,7 @@ interface RegistryDataType {
     title: string;
 }
 
-interface RegistryConstantValueType {
+export interface RegistryConstantValueType {
     key: string;
     title: string;
     port: RegistryPortBase;

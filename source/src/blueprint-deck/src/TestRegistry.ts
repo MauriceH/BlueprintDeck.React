@@ -5,7 +5,7 @@ export const TestRegistry : BluePrintRegistry = {
     nodeTypes: [
         {
             key: "Activate",
-            title: "Activate Node",
+            title: "Activate",
             ports: [
                 {
                     mandatory: false,

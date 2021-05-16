@@ -10,8 +10,8 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {BluePrintRegistry} from "./BluePrintRegistry";
-import {BluePrintDesign, DesignNode} from "./BluePrintDesign";
-import {createElements, createNodeElement, NodeTypes} from "./nodes/createElements";
+import {BluePrintDesign, DesignConstantValue, DesignNode} from "./BluePrintDesign";
+import {createConstantValueElement, createElements, createNodeElement, NodeTypes} from "./nodes/createElements";
 import {BlueprintNodeData, NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
@@ -19,6 +19,7 @@ import {connectionStyle} from "./defaultConnectionStyle";
 import {SidePanel} from "./side-panel/SidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {Node} from "react-flow-renderer/dist/types";
+import {getDragData} from "./side-panel/node-pool/SetDragData";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -73,21 +74,36 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         event.preventDefault();
         if (reactFlowWrapper.current == null || reactFlowInstance == null) return;
         const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-        const type = event.dataTransfer.getData('application/reactflow');
+        const data = getDragData(event.dataTransfer);
+        if(data.type == null || data.title == null || data.nodeType == null) return;
+
         const position = reactFlowInstance.project({
             x: event.clientX - reactFlowBounds.left,
             y: event.clientY - reactFlowBounds.top,
         });
-        const newNode : DesignNode = {
-            key: uuid(),
-            nodeTypeKey: type,
-            title: 'New',
-            location: position
+
+        if(data.type == 'node') {
+
+            const newNode : DesignNode = {
+                key: uuid(),
+                nodeTypeKey: data.nodeType,
+                title: data.title,
+                location: position
+            }
+            const newElement = createNodeElement(registry, newNode);
+            setElements((es) => es.concat(newElement as Node<NodeData>));
+        } else {
+            const newValue : DesignConstantValue = {
+                key: uuid(),
+                nodeTypeKey: data.nodeType,
+                title: data.title,
+                location: position,
+                value: ''
+            }
+            const newElement = createConstantValueElement(registry, newValue);
+            setElements((es) => es.concat(newElement as Node<NodeData>));
         }
 
-        const newElement = createNodeElement(registry,newNode);
-
-        setElements((es) => es.concat(newElement as Node<NodeData>));
     }, [reactFlowInstance, reactFlowWrapper, registry]);
 
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>

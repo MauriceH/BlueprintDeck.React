@@ -81,14 +81,6 @@ export const TestDesign : BluePrintDesign = {
             key: "Duration1",
             nodeTypeKey: "timespan",
             data: null
-        },
-        {
-            value: "15000",
-            location: {x:0,y:450},
-            title: "Number",
-            key: "Int32_1",
-            nodeTypeKey: "int32",
-            data: null
         }
     ]
 }
