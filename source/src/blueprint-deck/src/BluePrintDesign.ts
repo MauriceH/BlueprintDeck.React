@@ -3,7 +3,7 @@ interface Location {
     y: number;
 }
 
-interface DesignNode {
+export interface DesignNode {
     location: Location;
     title: string;
     key: string;
@@ -19,7 +19,7 @@ interface DesignConnection {
     nodePortTo: string;
 }
 
-interface DesignConstantValue {
+export interface DesignConstantValue {
     location: Location;
     title: string;
     key: string;

@@ -1,16 +1,26 @@
-import React, {useContext} from "react";
+import React, {useCallback, useContext, DragEvent} from "react";
 import {RegistryContext} from "../../RegistryContext";
 import {RegistryNodeType} from "../../BluePrintRegistry";
 
 
-const NodePoolEntry = (props: { nodeType: RegistryNodeType }) => {
+const NodePoolEntry = ({nodeType,...props}: { nodeType: RegistryNodeType }) => {
+
+    const onDragStart = useCallback((event: DragEvent<HTMLDivElement>) => {
+        event.dataTransfer.setData('application/reactflow', nodeType.key);
+        event.dataTransfer.effectAllowed = 'move';
+    },[nodeType]);
+
     return <div className={"react-flow__node"}
                 style={{
                     position: "inherit",
                     padding: "5px",
                     cursor: "pointer",
                     fontSize: '1em'
-                }}>{props.nodeType.title}</div>;
+                }}
+                onDragStart={onDragStart}
+                draggable>
+        {nodeType.title}
+    </div>;
 };
 
 export const NodePool = () => {
