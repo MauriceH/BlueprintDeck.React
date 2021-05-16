@@ -78,8 +78,8 @@ export const NodeArea = ({registry, design, nodeTypes}: NodeAreaOptions) => {
         if(data.type == null || data.title == null || data.nodeType == null) return;
 
         const position = reactFlowInstance.project({
-            x: event.clientX - reactFlowBounds.left,
-            y: event.clientY - reactFlowBounds.top,
+            x: event.clientX - reactFlowBounds.left - 100,
+            y: event.clientY - reactFlowBounds.top - 15,
         });
 
         if(data.type == 'node') {

@@ -11,6 +11,7 @@ export const PoolEntry = ({type,nodeType,title}: { type: dragNodeType, nodeType:
 
     return <div className={"react-flow__node react-flow__node-" + className}
                 style={{
+                    width: 190,
                     position: "inherit",
                     padding: "5px",
                     cursor: "pointer",
