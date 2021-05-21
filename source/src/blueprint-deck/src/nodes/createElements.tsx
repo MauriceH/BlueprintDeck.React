@@ -11,6 +11,9 @@ export declare type NodeTypes = {
     [key: string]: (node: BlueprintNodeData) => ReactNode;
 };
 
+export const ConstantValueElementType = 'constantValueNode';
+
+export const ConnectionElementType = 'connection'
 
 export const createNodeElement = (registry: BluePrintRegistry, node: DesignNode) => {
     const nodeType = registry.nodeTypes.find(x => x.key === node.nodeTypeKey)
@@ -39,7 +42,7 @@ export const createConstantValueElement = (registry: BluePrintRegistry, value: D
 
     const nodeElement: Node<NodeData> = {
         id: value.key,
-        type: 'constantValueNode',
+        type: ConstantValueElementType,
         position: {x: value.location.x, y: value.location.y},
         data: {
             label: value.title,
@@ -54,6 +57,7 @@ export const createConstantValueElement = (registry: BluePrintRegistry, value: D
                 mandatory: false,
                 dataType: dataType
             }],
+            value: value.value
         },
     };
     return nodeElement
@@ -75,7 +79,7 @@ export const createElements = (registry: BluePrintRegistry, design: BluePrintDes
     const connectionElements = design.connections.map(value => {
         const connectionElement: Edge<NodeData> = {
             id: value.key,
-            type: 'connection',
+            type: ConnectionElementType,
             source: value.nodeFrom,
             sourceHandle: value.nodePortFrom,
             target: value.nodeTo,

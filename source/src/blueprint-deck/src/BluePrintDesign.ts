@@ -11,7 +11,7 @@ export interface DesignNode {
     data?: any;
 }
 
-interface DesignConnection {
+export interface DesignConnection {
     key: string;
     nodeFrom: string;
     nodePortFrom: string;

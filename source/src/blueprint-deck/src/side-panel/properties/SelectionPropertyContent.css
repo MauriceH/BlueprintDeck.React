@@ -1,0 +1,15 @@
+Label {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.property-value > Label {
+    width: 80px;
+    display: inline-block;
+    text-align: left;
+}
+
+.property-value {
+    font-size: 0.9em;
+}
+

@@ -2,26 +2,26 @@ import {BluePrintDesign} from "./BluePrintDesign";
 
 export const TestDesign : BluePrintDesign = {
     nodes: [
-        {
-            location: {
-                x: 550,
-                y: 300
-            },
-            title: "TestNode1",
-            key: "TestNode1",
-            nodeTypeKey: "TestNode",
-            data: null
-        },
-        {
-            location: {
-                x: 550,
-                y: 100
-            },
-            title: "TestNode2",
-            key: "TestNode2",
-            nodeTypeKey: "TestNode",
-            data: null
-        },
+        // {
+        //     location: {
+        //         x: 550,
+        //         y: 300
+        //     },
+        //     title: "TestNode1",
+        //     key: "TestNode1",
+        //     nodeTypeKey: "TestNode",
+        //     data: null
+        // },
+        // {
+        //     location: {
+        //         x: 550,
+        //         y: 100
+        //     },
+        //     title: "TestNode2",
+        //     key: "TestNode2",
+        //     nodeTypeKey: "TestNode",
+        //     data: null
+        // },
         {
             location: {
                 x: 0,

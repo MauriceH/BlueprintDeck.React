@@ -1,3 +1,5 @@
+import {BluePrintDesign} from "./BluePrintDesign";
+
 interface RegistryPortBase {
     key: string;
     title: string;
@@ -46,3 +48,5 @@ export interface BluePrintRegistry {
     dataTypes: RegistryDataType[ ],
     constantValueNodeTypes: RegistryConstantValueType[]
 }
+
+export const emptyDesign: BluePrintDesign= {connections: [], nodes: [], constantValues: []};
