@@ -76,6 +76,7 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
     const nodeEvents: NodeEvents = {
         onNodeDelete: (node) => {
+            if(node?.id == null) return;
             setElements(oldElements => {
                 return oldElements.filter(x => (isNode(x) && x.id != node.id) || (isEdge(x) && x.source != node.id && x.target != node.id));
             });
