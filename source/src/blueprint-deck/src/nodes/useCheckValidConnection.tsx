@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {Connection, Edge, Node, useStoreState} from "react-flow-renderer";
-import {PortDataMode, PortInputOutputType, RegistryNodePort} from "../BluePrintRegistry";
-import {NodeData} from "../NodeData";
+import {PortDataMode, PortInputOutputType, RegistryNodePort} from "../model/BluePrintRegistry";
+import {NodeData} from "../model/NodeData";
 
 export const useCheckValidConnection = (port: RegistryNodePort) => {
     const nodes = useStoreState((store) => store.nodes);

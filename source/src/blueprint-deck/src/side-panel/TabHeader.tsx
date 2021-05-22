@@ -14,7 +14,7 @@ export const TabHeader = ({title, active, onClick}: TabHeaderProps) => {
             borderBottom: 'solid 2px #777',
         }
     }
-    return <div style={{padding: '4px 6px', cursor: 'pointer',...activeStyle}} onClick={onClick}>
+    return <div style={{padding: '5px 8px', cursor: 'pointer',...activeStyle}} onClick={onClick}>
         {title}
     </div>
 }

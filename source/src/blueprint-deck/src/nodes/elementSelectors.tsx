@@ -1,4 +1,4 @@
-import {BlueprintEdgeData, BlueprintNodeData, NodeData} from "../NodeData";
+import {BlueprintEdgeData, BlueprintNodeData, NodeData} from "../model/NodeData";
 import {Elements} from "react-flow-renderer";
 import {ConnectionElementType, ConstantValueElementType} from "./createElements";
 

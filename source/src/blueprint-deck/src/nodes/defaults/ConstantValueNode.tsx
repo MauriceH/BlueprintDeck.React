@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, Node, Position } from "react-flow-renderer";
-import { NodeData } from "../../NodeData";
+import { NodeData } from "../../model/NodeData";
 import { NodeTitle } from "../NodeTitle";
 import {BaseNode} from "../BaseNode";
 

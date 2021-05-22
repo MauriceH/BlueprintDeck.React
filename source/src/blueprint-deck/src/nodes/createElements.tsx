@@ -1,10 +1,10 @@
-import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../BluePrintRegistry";
-import {BluePrintDesign, DesignConstantValue, DesignNode} from "../BluePrintDesign";
+import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../model/BluePrintRegistry";
+import {BluePrintDesign, DesignConstantValue, DesignNode} from "../model/BluePrintDesign";
 import {Elements} from "react-flow-renderer";
 import {Edge, Node} from "react-flow-renderer/dist/types";
-import {BlueprintNodeData, ConstantValueType, NodeData} from "../NodeData";
+import {BlueprintNodeData, ConstantValueType, NodeData} from "../model/NodeData";
 import React, {ReactNode} from "react";
-import {connectionStyle} from "../defaultConnectionStyle";
+import {connectionStyle} from "../NodeArea/defaultConnectionStyle";
 
 
 export declare type NodeTypes = {

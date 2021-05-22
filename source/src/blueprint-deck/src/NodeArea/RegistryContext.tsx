@@ -1,4 +1,4 @@
-import {BluePrintRegistry} from "./BluePrintRegistry";
+import {BluePrintRegistry} from "../model/BluePrintRegistry";
 import React from "react";
 
 

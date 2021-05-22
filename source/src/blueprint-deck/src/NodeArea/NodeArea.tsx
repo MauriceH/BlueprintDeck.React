@@ -9,14 +9,14 @@ import ReactFlow, {
     OnLoadParams
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useRef, useState} from "react";
-import {BluePrintRegistry, emptyDesign} from "./BluePrintRegistry";
-import {BluePrintDesign} from "./BluePrintDesign";
-import {createElements, NodeTypes} from "./nodes/createElements";
-import {NodeData} from "./NodeData";
-import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
+import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
+import {BluePrintDesign} from "../model/BluePrintDesign";
+import {createElements, NodeTypes} from "../nodes/createElements";
+import {NodeData} from "../model/NodeData";
+import {defaultReactNodes} from "../nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
-import {SidePanel} from "./side-panel/SidePanel";
+import {SidePanel} from "../side-panel/SidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";

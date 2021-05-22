@@ -1,12 +1,12 @@
 import React, {useCallback} from "react";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {Elements, OnLoadParams} from "react-flow-renderer";
-import {BluePrintRegistry} from "./BluePrintRegistry";
-import {NodeData} from "./NodeData";
-import {getDragData} from "./side-panel/node-pool/SetDragData";
-import {DesignConstantValue, DesignNode} from "./BluePrintDesign";
+import {BluePrintRegistry} from "../model/BluePrintRegistry";
+import {NodeData} from "../model/NodeData";
+import {getDragData} from "../side-panel/node-pool/SetDragData";
+import {DesignConstantValue, DesignNode} from "../model/BluePrintDesign";
 import {v4 as uuid} from "uuid";
-import {createConstantValueElement, createNodeElement} from "./nodes/createElements";
+import {createConstantValueElement, createNodeElement} from "../nodes/createElements";
 import {Node} from "react-flow-renderer/dist/types";
 
 export function useNodeAreaDragDrop(reactFlowWrapper: React.RefObject<ReactFlowRefType>, reactFlowInstance: OnLoadParams<any> | null, registry: BluePrintRegistry, setElements: React.Dispatch<React.SetStateAction<Elements<NodeData>>>) {

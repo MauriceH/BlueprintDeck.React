@@ -1,10 +1,10 @@
-import {BluePrintDesign} from "./BluePrintDesign";
-import {BluePrintRegistry, emptyDesign} from "./BluePrintRegistry";
+import {BluePrintDesign} from "../model/BluePrintDesign";
+import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
 import React, {useCallback, useEffect, useRef} from "react";
 import {Elements} from "react-flow-renderer";
-import {NodeData} from "./NodeData";
-import {createElements} from "./nodes/createElements";
-import {createDesign} from "./nodes/createDesign";
+import {NodeData} from "../model/NodeData";
+import {createElements} from "../nodes/createElements";
+import {createDesign} from "../nodes/createDesign";
 
 export const useNodeAreaBlueprintDesign = (design: BluePrintDesign | undefined, registry: BluePrintRegistry, setElements: React.Dispatch<React.SetStateAction<Elements<NodeData>>>, elements: Elements<NodeData>, onDesignChanged: ((design: BluePrintDesign) => void) | undefined) => {
     const designRef = useRef(design);

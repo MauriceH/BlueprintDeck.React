@@ -1,7 +1,7 @@
 import {NodeTypesType} from "react-flow-renderer/dist/types";
 import ConstantValueNode from "./ConstantValueNode";
 import {ActivateNode} from "./ActiveateNode";
-import {BlueprintNodeData} from "../../NodeData";
+import {BlueprintNodeData} from "../../model/NodeData";
 import {BaseNode} from "../BaseNode";
 import React from "react";
 

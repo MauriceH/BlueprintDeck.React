@@ -1,4 +1,4 @@
-import {BluePrintDesign} from "./BluePrintDesign";
+import {BluePrintDesign} from "../model/BluePrintDesign";
 
 export const TestDesign : BluePrintDesign = {
     nodes: [

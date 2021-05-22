@@ -1,7 +1,7 @@
 import React from "react";
 import {useStoreState} from "react-flow-renderer";
-import {BlueprintNodeData} from "../../NodeData";
-import {PortInputOutputType} from "../../BluePrintRegistry";
+import {BlueprintNodeData} from "../../model/NodeData";
+import {PortInputOutputType} from "../../model/BluePrintRegistry";
 import './SelectionPropertyContent.css'
 
 

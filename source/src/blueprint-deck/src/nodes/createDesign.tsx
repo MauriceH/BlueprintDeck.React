@@ -1,6 +1,6 @@
 import {Elements} from "react-flow-renderer";
-import {NodeData} from "../NodeData";
-import {BluePrintDesign, DesignConnection, DesignConstantValue, DesignNode} from "../BluePrintDesign";
+import {NodeData} from "../model/NodeData";
+import {BluePrintDesign, DesignConnection, DesignConstantValue, DesignNode} from "../model/BluePrintDesign";
 import {selectConnections, selectConstantValues, selectNodes} from "./elementSelectors";
 
 export const createDesign = (elements: Elements<NodeData>) => {

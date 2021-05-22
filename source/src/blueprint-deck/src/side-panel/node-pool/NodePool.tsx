@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {RegistryContext} from "../../RegistryContext";
+import {RegistryContext} from "../../NodeArea/RegistryContext";
 import {PoolEntry} from "./PoolEntry";
 import {PoolContainer} from "./PoolContainer";
 

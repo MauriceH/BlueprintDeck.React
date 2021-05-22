@@ -1,4 +1,4 @@
-import {BluePrintRegistry} from "./BluePrintRegistry";
+import {BluePrintRegistry} from "../model/BluePrintRegistry";
 
 
 export const TestRegistry : BluePrintRegistry = {

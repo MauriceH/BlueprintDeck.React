@@ -1,6 +1,6 @@
 import {Handle, Position} from "react-flow-renderer";
 import React from "react";
-import {PortInputOutputType, RegistryNodePort} from "../BluePrintRegistry";
+import {PortInputOutputType, RegistryNodePort} from "../model/BluePrintRegistry";
 import './NodePort.css'
 import './NodePortAnimation.css'
 import {HandleProps} from "react-flow-renderer/dist/types";
