@@ -6,7 +6,9 @@ import ReactFlow, {
     Controls,
     Edge,
     Elements,
-    OnLoadParams
+    isEdge,
+    isNode,
+    OnLoadParams, useStoreState
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useRef, useState} from "react";
 import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
@@ -21,6 +23,8 @@ import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
 import {Node} from "react-flow-renderer/dist/types";
+import {NodeEvents, NodeEventsContext} from "./NodeEventsContext";
+import {KeyHandler} from "./KeyHandler";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -36,8 +40,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     const [elements, setElements] = useState<Elements<NodeData>>(() => createElements(registry, design ?? emptyDesign));
     const [isConnectable, setConnectable] = useState(true);
 
-    useNodeAreaBlueprintDesign(design, registry, setElements, elements, onDesignChanged);
-
     const onConnect = (connection: Edge | Connection) => {
         const edge: Edge<NodeData> = {
             id: uuid(),
@@ -51,6 +53,10 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
         setElements((els) => addEdge(edge, els));
     };
 
+    useNodeAreaBlueprintDesign(design, registry, setElements, elements, onDesignChanged);
+
+
+
     const reactFlowWrapper = useRef<ReactFlowRefType>(null);
     const [reactFlowInstance, setReactFlowInstance] = useState<OnLoadParams | null>(null);
 
@@ -63,35 +69,45 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     const {onDragOver, onDrop} = useNodeAreaDragDrop(reactFlowWrapper, reactFlowInstance, registry, setElements);
 
 
-
-    const onNodesChanged = useCallback((event: MouseEvent, node: Node)=>{
+    const onNodesChanged = useCallback((event: MouseEvent, node: Node) => {
         setElements(oldElements => oldElements.map(x => x.id != node.id ? x : {...x, position: node.position}));
-    },[])
+    }, [])
 
+
+    const nodeEvents: NodeEvents = {
+        onNodeDelete: (node) => {
+            setElements(oldElements => {
+                return oldElements.filter(x => (isNode(x) && x.id != node.id) || (isEdge(x) && x.source != node.id && x.target != node.id));
+            });
+        }
+    };
 
 
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>
-        <ReactFlow
-            ref={reactFlowWrapper}
-            onLoad={onLoad}
-            elements={elements}
-            nodesConnectable={isConnectable}
-            nodeTypes={{...defaultReactNodes, ...nodeTypes}}
-            onConnect={onConnect}
-            connectionLineStyle={{...connectionStyle}}
-            snapGrid={[10, 10]}
-            snapToGrid={true}
-            elementsSelectable={true}
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            onNodeDragStop={onNodesChanged}
-            style={{display: 'flex'}}
-        >
+        <NodeEventsContext.Provider value={nodeEvents}>
+            <ReactFlow
+                ref={reactFlowWrapper}
+                onLoad={onLoad}
+                elements={elements}
+                nodesConnectable={isConnectable}
+                nodeTypes={{...defaultReactNodes, ...nodeTypes}}
+                onConnect={onConnect}
+                connectionLineStyle={{...connectionStyle}}
+                snapGrid={[10, 10]}
+                snapToGrid={true}
+                elementsSelectable={true}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                onNodeDragStop={onNodesChanged}
+                style={{display: 'flex'}}
 
-            <Background variant={BackgroundVariant.Dots} gap={10}/>
-            <Controls/>
-            <SidePanel/>
-        </ReactFlow>
+            >
+                <KeyHandler />
+                <Background variant={BackgroundVariant.Dots} gap={10}/>
+                <Controls/>
+                <SidePanel/>
+            </ReactFlow>
+        </NodeEventsContext.Provider>
 
     </div>;
 };

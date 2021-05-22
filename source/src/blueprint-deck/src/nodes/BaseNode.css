@@ -25,3 +25,24 @@
     font-size: 0.70em;
     color: #999;
 }
+
+.node-delete-container {
+    position: absolute;
+    right: 0;
+    padding: 1px;
+}
+.node-delete-button {
+    cursor: pointer;
+    padding: 3px;
+    width: 12px;
+    height: 12px;
+    color: #ddd;
+    border: 0;
+    border-radius: 0.5rem;
+    user-select: none;
+}
+.node-delete-button:hover {
+    cursor: pointer;
+    background-color: #00000018;
+
+}
