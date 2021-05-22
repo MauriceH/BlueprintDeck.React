@@ -8,7 +8,7 @@ export const createDesign = (elements: Elements<NodeData>) => {
         nodes: selectNodes(elements).map(n => {
             const result: DesignNode = {
                 key: n.id,
-                location: n.position,
+                location: {x: n.position.x, y: n.position.y},
                 nodeTypeKey: n.data?.type!,
                 title: n.data?.label!
             }
@@ -17,7 +17,7 @@ export const createDesign = (elements: Elements<NodeData>) => {
         constantValues: selectConstantValues(elements).map(n => {
             const result: DesignConstantValue = {
                 key: n.id,
-                location: n.position,
+                location: {x: n.position.x, y: n.position.y},
                 nodeTypeKey: n.data?.constantValueDataType!,
                 title: n.data?.label!,
                 value: n.data?.value!

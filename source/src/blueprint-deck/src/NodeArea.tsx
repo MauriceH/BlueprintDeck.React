@@ -8,19 +8,19 @@ import ReactFlow, {
     Elements,
     OnLoadParams
 } from "react-flow-renderer";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {MouseEvent, useCallback, useRef, useState} from "react";
 import {BluePrintRegistry, emptyDesign} from "./BluePrintRegistry";
-import {BluePrintDesign, DesignConstantValue, DesignNode} from "./BluePrintDesign";
-import {createConstantValueElement, createElements, createNodeElement, NodeTypes} from "./nodes/createElements";
+import {BluePrintDesign} from "./BluePrintDesign";
+import {createElements, NodeTypes} from "./nodes/createElements";
 import {NodeData} from "./NodeData";
 import {defaultReactNodes} from "./nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
 import {SidePanel} from "./side-panel/SidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
+import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
+import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
 import {Node} from "react-flow-renderer/dist/types";
-import {getDragData} from "./side-panel/node-pool/SetDragData";
-import {createDesign} from "./nodes/createDesign";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -32,17 +32,11 @@ export interface NodeAreaOptions {
 
 export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAreaOptions) => {
 
-    const designRef = useRef(design);
+
     const [elements, setElements] = useState<Elements<NodeData>>(() => createElements(registry, design ?? emptyDesign));
-
-    useEffect(() => {
-        if (design !== designRef.current) {
-            const newElements = createElements(registry, design ?? emptyDesign)
-            setElements(newElements)
-        }
-    }, [design])
-
     const [isConnectable, setConnectable] = useState(true);
+
+    useNodeAreaBlueprintDesign(design, registry, setElements, elements, onDesignChanged);
 
     const onConnect = (connection: Edge | Connection) => {
         const edge: Edge<NodeData> = {
@@ -57,7 +51,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
         setElements((els) => addEdge(edge, els));
     };
 
-
     const reactFlowWrapper = useRef<ReactFlowRefType>(null);
     const [reactFlowInstance, setReactFlowInstance] = useState<OnLoadParams | null>(null);
 
@@ -67,53 +60,14 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     }, [setReactFlowInstance]);
 
 
-    const onDragOver = useCallback((event) => {
-        event.preventDefault();
-        event.dataTransfer.dropEffect = 'move';
-    }, []);
-
-    const onDrop = useCallback((event) => {
-        event.preventDefault();
-        if (reactFlowWrapper.current == null || reactFlowInstance == null) return;
-        const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-        const data = getDragData(event.dataTransfer);
-        if (data.type == null || data.title == null || data.nodeType == null) return;
-
-        const position = reactFlowInstance.project({
-            x: event.clientX - reactFlowBounds.left - 100,
-            y: event.clientY - reactFlowBounds.top - 15,
-        });
-
-        if (data.type == 'node') {
-
-            const newNode: DesignNode = {
-                key: uuid(),
-                nodeTypeKey: data.nodeType,
-                title: data.title,
-                location: position
-            }
-            const newElement = createNodeElement(registry, newNode);
-            setElements((es) => es.concat(newElement as Node<NodeData>));
-        } else {
-            const newValue: DesignConstantValue = {
-                key: uuid(),
-                nodeTypeKey: data.nodeType,
-                title: data.title,
-                location: position,
-                value: ''
-            }
-            const newElement = createConstantValueElement(registry, newValue);
-            setElements((es) => es.concat(newElement as Node<NodeData>));
-        }
-
-    }, [reactFlowInstance, reactFlowWrapper, registry]);
+    const {onDragOver, onDrop} = useNodeAreaDragDrop(reactFlowWrapper, reactFlowInstance, registry, setElements);
 
 
-    useEffect(() => {
-        const newDesign = createDesign(elements)
-        designRef.current = newDesign;
-        if (onDesignChanged != null) onDesignChanged(newDesign)
-    }, [elements, onDesignChanged])
+
+    const onNodesChanged = useCallback((event: MouseEvent, node: Node)=>{
+        setElements(oldElements => oldElements.map(x => x.id != node.id ? x : {...x, position: node.position}));
+    },[])
+
 
 
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>
@@ -130,9 +84,10 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
             elementsSelectable={true}
             onDragOver={onDragOver}
             onDrop={onDrop}
-            onMove={(flow)=>{console.log('move',flow?.x, flow?.y)}}
+            onNodeDragStop={onNodesChanged}
             style={{display: 'flex'}}
         >
+
             <Background variant={BackgroundVariant.Dots} gap={10}/>
             <Controls/>
             <SidePanel/>
@@ -140,4 +95,5 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
     </div>;
 };
+
 

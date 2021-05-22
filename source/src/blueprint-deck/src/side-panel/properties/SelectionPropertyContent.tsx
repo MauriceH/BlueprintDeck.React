@@ -29,7 +29,7 @@ export const SelectionPropertyContent = () => {
         <PropertySection title={"Default"}/>
         <div className={"property-value"}>
             <label style={{display:"block"}}>Id:</label>
-            <input type={"text"} value={node.id}/>
+            {/*<input type={"text"} value={node.id}/>*/}
         </div>
         <div className={"property-value"}><label>Title:</label>{node.data?.label}</div>
         <div className={"property-value"}><label>Position:</label>{node.data?.label}</div>
