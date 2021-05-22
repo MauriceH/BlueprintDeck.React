@@ -1,29 +1,47 @@
-import {useStoreState} from "react-flow-renderer";
-import {useCallback, useEffect} from "react";
-import React from "react";
+import {isNode, useStoreState} from "react-flow-renderer";
+import React, {EventHandler, KeyboardEvent, KeyboardEventHandler, useCallback, useEffect, useRef} from "react";
+import {NodeEventsContext, useNodeDelete} from "./NodeEventsContext";
+import {BlueprintNodeData} from "../model/NodeData";
 
 export const KeyHandler = () => {
     const selectedElements = useStoreState(store => store.selectedElements)
     useEffect(() => {
-        selectedElements?.find(x => x)
+
     }, [selectedElements])
 
-    const onDeleteKey = useCallback(()=>{
+    const nodeEvents = useNodeDelete();
 
-    },[])
+    const onDeleteKey = useCallback(() => {
+        const selectedNodes = selectedElements?.filter(x=>isNode(x));
+        if(selectedNodes == null || selectedNodes.length <= 0) return;
+        const first = selectedNodes[0] as BlueprintNodeData;
+        nodeEvents(first)
+    }, [selectedElements, nodeEvents])
 
-    const onKey = useCallback((key:string) => {
-        console.log(key);
-        if(key == "delete") {
+    const onKey = useCallback((key: string) => {
+        if (key == "Delete") {
             onDeleteKey();
         }
-    },[onDeleteKey])
+    }, [onDeleteKey])
 
-    return <div tabIndex={0}
-                onKeyPress={(event) => {
-                    console.log('key', event.key);
-                    onKey(event.key);
-                }}>&nbsp;</div>
+    const ref = useRef<HTMLDivElement>();
+
+    useEffect(()=>{
+        if(ref.current != null) {
+            ref.current?.focus()
+        }
+    },[ref])
+
+    useEffect(()=>{
+        const keyEvent = (event: any) => {
+            onKey((event as KeyboardEvent<any>).key)
+        }
+        window.addEventListener("keydown", keyEvent,false )
+        return ()=>{
+            window.addEventListener("keydown", keyEvent,false )
+        }
+    })
+    return <></>
 
 
 }

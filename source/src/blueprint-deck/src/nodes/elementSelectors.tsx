@@ -1,5 +1,5 @@
 import {BlueprintEdgeData, BlueprintNodeData, NodeData} from "../model/NodeData";
-import {Elements} from "react-flow-renderer";
+import {Elements, isEdge} from "react-flow-renderer";
 import {ConnectionElementType, ConstantValueElementType} from "./createElements";
 
 
@@ -12,6 +12,6 @@ export const selectConstantValues = (elements:Elements<NodeData>) => {
         .map(x=> x as BlueprintNodeData);
 }
 export const selectConnections = (elements:Elements<NodeData>) => {
-    return elements.filter(x=> (x as any).position == null && x.type == ConnectionElementType)
+    return elements.filter(x=> isEdge(x))
         .map(x=> x as BlueprintEdgeData);
 }
