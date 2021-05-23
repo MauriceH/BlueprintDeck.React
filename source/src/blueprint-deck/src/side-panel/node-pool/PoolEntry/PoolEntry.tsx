@@ -1,5 +1,6 @@
 import React, {DragEvent, useCallback} from "react";
-import {dragNodeType, setDragData} from "./SetDragData";
+import {dragNodeType, setDragData} from "../../../NodeArea/SetDragData";
+import './PoolEntry.css'
 
 export const PoolEntry = ({type,nodeType,title}: { type: dragNodeType, nodeType: string, title: string }) => {
 
@@ -9,14 +10,7 @@ export const PoolEntry = ({type,nodeType,title}: { type: dragNodeType, nodeType:
 
     let className = type == 'node' ?  nodeType : 'constantValueNode';
 
-    return <div className={"react-flow__node react-flow__node-" + className}
-                style={{
-                    width: 190,
-                    position: "inherit",
-                    padding: "5px",
-                    cursor: "pointer",
-                    fontSize: '1em'
-                }}
+    return <div className={"blueprint-node-pool-entry react-flow__node-" + className}
                 onDragStart={onDragStart}
                 draggable>
         {title}

@@ -1,0 +1,17 @@
+.blueprint-side-panel {
+    z-Index: 5;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 300px;
+    border-left: solid 1px #777;
+    background-color: white;
+}
+
+.blueprint-minimap-container {
+    align-self: center;
+    flex: 0 0 auto;
+}
+
+.blueprint-minimap {
+    position: inherit;
+}

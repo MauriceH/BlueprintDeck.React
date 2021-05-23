@@ -1,5 +1,5 @@
 import {BluePrintRegistry, PortDataMode, PortInputOutputType} from "../model/BluePrintRegistry";
-import {BluePrintDesign, DesignConstantValue, DesignNode} from "../model/BluePrintDesign";
+import {Blueprint, DesignConstantValue, DesignNode} from "../model/Blueprint";
 import {Elements} from "react-flow-renderer";
 import {Edge, Node} from "react-flow-renderer/dist/types";
 import {BlueprintNodeData, ConstantValueType, NodeData} from "../model/NodeData";
@@ -64,7 +64,7 @@ export const createConstantValueElement = (registry: BluePrintRegistry, value: D
 }
 
 
-export const createElements = (registry: BluePrintRegistry, design: BluePrintDesign): Elements<NodeData> => {
+export const createElements = (registry: BluePrintRegistry, design: Blueprint): Elements<NodeData> => {
     if (design == null) return [];
 
     const nodeElements = design.nodes

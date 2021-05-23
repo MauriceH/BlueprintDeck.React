@@ -1,11 +1,11 @@
-import {BluePrintDesign} from "../../model/BluePrintDesign";
+import {Blueprint} from "../../model/Blueprint";
 import React from "react";
 
 export const JsonDesignEditor = ({
                                      visible,
                                      design,
                                      setDesign
-                                 }: { visible: boolean, design: BluePrintDesign, setDesign: (design: BluePrintDesign) => void; }) => {
+                                 }: { visible: boolean, design: Blueprint, setDesign: (design: Blueprint) => void; }) => {
 
     const visibility = !visible ? {display: 'none'} : {}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Handle, Node, Position } from "react-flow-renderer";
 import { NodeData } from "../../model/NodeData";
-import { NodeTitle } from "../NodeTitle";
+import { NodeTitle } from "../components/NodeTitle/NodeTitle";
 import {BaseNode} from "../BaseNode";
 
 const TimeSpanConstantValueContent = ({ node }: { node: Node<NodeData> }) => {

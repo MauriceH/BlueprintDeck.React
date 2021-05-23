@@ -1,10 +1,10 @@
 import {Elements} from "react-flow-renderer";
 import {NodeData} from "../model/NodeData";
-import {BluePrintDesign, DesignConnection, DesignConstantValue, DesignNode} from "../model/BluePrintDesign";
+import {Blueprint, DesignConnection, DesignConstantValue, DesignNode} from "../model/Blueprint";
 import {selectConnections, selectConstantValues, selectNodes} from "./elementSelectors";
 
 export const createDesign = (elements: Elements<NodeData>) => {
-    const newDesign: BluePrintDesign = {
+    const newDesign: Blueprint = {
         nodes: selectNodes(elements).map(n => {
             const result: DesignNode = {
                 key: n.id,

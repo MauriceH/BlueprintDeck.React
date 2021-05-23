@@ -1,10 +1,10 @@
 import {Handle, Position} from "react-flow-renderer";
 import React from "react";
-import {PortInputOutputType, RegistryNodePort} from "../model/BluePrintRegistry";
+import {PortInputOutputType, RegistryNodePort} from "../../../model/BluePrintRegistry";
 import './NodePort.css'
 import './NodePortAnimation.css'
 import {HandleProps} from "react-flow-renderer/dist/types";
-import {useCheckValidConnection} from "./useCheckValidConnection";
+import {useCheckValidConnection} from "../../useCheckValidConnection";
 
 export type NodePortProps = {
     port: RegistryNodePort,

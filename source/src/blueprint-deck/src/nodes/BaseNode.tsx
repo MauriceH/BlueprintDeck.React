@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {BlueprintNodeData, NodeData} from "../model/NodeData";
-import {NodeTitle} from "./NodeTitle";
-import {NodePort} from "./NodePort";
+import {NodeTitle} from "./components/NodeTitle/NodeTitle";
+import {NodePort} from "./components/NodePort/NodePort";
 import {PortInputOutputType} from "../model/BluePrintRegistry";
 import "./BaseNode.css";
 import {Edge, useStoreState} from "react-flow-renderer";

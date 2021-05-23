@@ -1,15 +1,15 @@
 import React from "react";
 import {useStoreState} from "react-flow-renderer";
-import {BlueprintNodeData} from "../../model/NodeData";
-import {PortInputOutputType} from "../../model/BluePrintRegistry";
-import './SelectionPropertyContent.css'
+import {BlueprintNodeData} from "../../../model/NodeData";
+import {PortInputOutputType} from "../../../model/BluePrintRegistry";
+import './PropertyContent.css'
 
 
 const PropertySection = ({title}:{title: string}) => {
     return <h4 style={{width: '100%', textAlign: "left", padding: '4px 0px', marginBottom: '5px', borderBottom: 'solid 1px #ccc'}}>{title}</h4>;
 };
 
-export const SelectionPropertyContent = () => {
+export const PropertyContent = () => {
     const selected = useStoreState(x => x.selectedElements);
 
     const noSelection = (selected?.length ?? 0) <= 0;

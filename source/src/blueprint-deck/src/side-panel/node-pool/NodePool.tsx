@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {RegistryContext} from "../../NodeArea/RegistryContext";
-import {PoolEntry} from "./PoolEntry";
-import {PoolContainer} from "./PoolContainer";
+import {PoolEntry} from "./PoolEntry/PoolEntry";
+import {PoolContainer} from "./PoolContainer/PoolContainer";
 
 export const NodePool = () => {
     const registry = useContext(RegistryContext);

@@ -21,7 +21,7 @@
 .react-flow__node-constantValueNode {
     width: 200px;
     border-radius: 5px;
-    padding: 0;
+    /*padding: 0;*/
     border: 1px solid #6b6bbb;
     background-color: rgb(220, 233, 255);
 }

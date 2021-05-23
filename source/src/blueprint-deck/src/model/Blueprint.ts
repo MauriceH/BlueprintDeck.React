@@ -28,7 +28,7 @@ export interface DesignConstantValue {
     value: string;
 }
 
-export interface BluePrintDesign {
+export interface Blueprint {
     nodes: DesignNode[],
     connections: DesignConnection[],
     constantValues: DesignConstantValue[]

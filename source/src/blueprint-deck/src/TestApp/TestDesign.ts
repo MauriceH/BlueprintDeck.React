@@ -1,6 +1,6 @@
-import {BluePrintDesign} from "../model/BluePrintDesign";
+import {Blueprint} from "../model/Blueprint";
 
-export const TestDesign : BluePrintDesign = {
+export const TestDesign : Blueprint = {
     nodes: [
         // {
         //     location: {

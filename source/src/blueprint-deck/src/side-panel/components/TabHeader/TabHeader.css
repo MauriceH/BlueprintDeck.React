@@ -1,0 +1,7 @@
+.tab-header {
+    padding: 5px 8px;
+    cursor: pointer;
+}
+.tab-active {
+    border-bottom: solid 2px #777;
+}

@@ -12,13 +12,13 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useRef, useState} from "react";
 import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
-import {BluePrintDesign} from "../model/BluePrintDesign";
+import {Blueprint} from "../model/Blueprint";
 import {createElements, NodeTypes} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
 import {defaultReactNodes} from "../nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
-import {SidePanel} from "../side-panel/SidePanel";
+import {SidePanel} from "../side-panel/components/SidePanel/SidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
@@ -28,9 +28,9 @@ import {KeyHandler} from "./KeyHandler";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
-    design?: BluePrintDesign
+    design?: Blueprint
     nodeTypes: NodeTypes
-    onDesignChanged?: (design: BluePrintDesign) => void;
+    onDesignChanged?: (design: Blueprint) => void;
 }
 
 

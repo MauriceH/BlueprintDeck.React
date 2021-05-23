@@ -1,0 +1,12 @@
+.blueprint-node-pool-entry {
+    width: 190px;
+    position: inherit;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+    color: #555;
+    border: 1px solid #dbc8b6;
+    text-align: center;
+    background-color: #f8edde;
+}
