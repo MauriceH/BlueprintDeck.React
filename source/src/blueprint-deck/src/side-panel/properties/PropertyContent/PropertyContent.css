@@ -3,13 +3,22 @@ Label {
     font-size: 0.9em;
 }
 
-.property-value > Label {
-    width: 80px;
-    display: inline-block;
+.blueprint-property-section {
+
+    grid-column-start: property;
+    grid-column-end: end;
+    justify-self: stretch;
     text-align: left;
+    padding: 4px 0;
+    margin-bottom: 5px;
+    border-bottom: solid 1px #ccc;
 }
 
-.property-value {
-    font-size: 0.9em;
+.blueprint-property-label  {
+    grid-column: property;
+}
+
+.blueprint-property-value-container  {
+    grid-column: end;
 }
 

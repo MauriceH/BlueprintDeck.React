@@ -34,7 +34,13 @@ export const KeyHandler = () => {
 
     useEffect(()=>{
         const keyEvent = (event: any) => {
-            onKey((event as KeyboardEvent<any>).key)
+            const keyEvent = event as KeyboardEvent<any>;
+
+            // I am a very nervous Ctrl+S spammer! Remove on production release
+            if(keyEvent.key == "s" && keyEvent.ctrlKey) {
+                event.preventDefault();
+            }
+            onKey(keyEvent.key)
         }
         window.addEventListener("keydown", keyEvent,false )
         return ()=>{

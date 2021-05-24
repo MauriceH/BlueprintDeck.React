@@ -1,0 +1,16 @@
+.blueprint-property-divider {
+    grid-column: divider;
+    margin: 0 -2px;
+    width: 5px;
+    justify-self: stretch;
+    align-self: stretch;
+    cursor: col-resize;
+    text-align: center;
+    user-select: none;
+}
+.blueprint-property-divider > div {
+    background-color: rgba(17, 17, 17, 0.2);
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+}
