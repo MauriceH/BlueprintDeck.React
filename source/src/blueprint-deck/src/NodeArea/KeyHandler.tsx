@@ -1,27 +1,30 @@
-import {isNode, useStoreState} from "react-flow-renderer";
-import React, {EventHandler, KeyboardEvent, KeyboardEventHandler, useCallback, useEffect, useRef} from "react";
-import {NodeEventsContext, useNodeDelete} from "./NodeEventsContext";
+import {isNode, useStoreActions, useStoreState} from "react-flow-renderer";
+import React, {KeyboardEvent, useCallback, useEffect, useRef} from "react";
+import {useNodeDelete} from "./NodeEventsContext";
 import {BlueprintNodeData} from "../model/NodeData";
 
 export const KeyHandler = () => {
     const selectedElements = useStoreState(store => store.selectedElements)
-    useEffect(() => {
 
-    }, [selectedElements])
+    const setSelectedElements = useStoreActions(acts => acts.setSelectedElements);
 
-    const nodeEvents = useNodeDelete();
+    const deleteNode = useNodeDelete();
 
     const onDeleteKey = useCallback(() => {
+        console.log('onDelete',selectedElements)
         const selectedNodes = selectedElements?.filter(x=>isNode(x));
         if(selectedNodes == null || selectedNodes.length <= 0) return;
         const first = selectedNodes[0] as BlueprintNodeData;
-        nodeEvents(first)
-    }, [selectedElements, nodeEvents])
+        deleteNode(first)
+        setSelectedElements([])
+    }, [selectedElements, deleteNode])
 
     const onKey = useCallback((key: string) => {
         if (key == "Delete") {
             onDeleteKey();
+            return true
         }
+        return false
     }, [onDeleteKey])
 
     const ref = useRef<HTMLDivElement>();
@@ -39,12 +42,17 @@ export const KeyHandler = () => {
             // I am a very nervous Ctrl+S spammer! Remove on production release
             if(keyEvent.key == "s" && keyEvent.ctrlKey) {
                 event.preventDefault();
+                return;
             }
-            onKey(keyEvent.key)
+            if(event.repeat) return;
+            const preventDefault = onKey(keyEvent.key)
+            if(preventDefault) {
+                event.preventDefault()
+            }
         }
         window.addEventListener("keydown", keyEvent,false )
         return ()=>{
-            window.addEventListener("keydown", keyEvent,false )
+            window.removeEventListener("keydown", keyEvent,false )
         }
     })
     return <></>

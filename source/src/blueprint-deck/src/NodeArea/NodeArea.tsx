@@ -8,7 +8,7 @@ import ReactFlow, {
     Elements,
     isEdge,
     isNode,
-    OnLoadParams, useStoreState
+    OnLoadParams
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useRef, useState} from "react";
 import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
@@ -56,7 +56,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     useNodeAreaBlueprintDesign(design, registry, setElements, elements, onDesignChanged);
 
 
-
     const reactFlowWrapper = useRef<ReactFlowRefType>(null);
     const [reactFlowInstance, setReactFlowInstance] = useState<OnLoadParams | null>(null);
 
@@ -68,7 +67,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
     const {onDragOver, onDrop} = useNodeAreaDragDrop(reactFlowWrapper, reactFlowInstance, registry, setElements);
 
-
     const onNodesChanged = useCallback((event: MouseEvent, node: Node) => {
         setElements(oldElements => oldElements.map(x => x.id != node.id ? x : {...x, position: node.position}));
     }, [])
@@ -76,11 +74,12 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
     const nodeEvents: NodeEvents = {
         onNodeDelete: (node) => {
-            if(node?.id == null) return;
+            if (node == null || node?.id == null) return;
             setElements(oldElements => {
                 return oldElements.filter(x => (isNode(x) && x.id != node.id) || (isEdge(x) && x.source != node.id && x.target != node.id));
             });
         }
+
     };
 
 

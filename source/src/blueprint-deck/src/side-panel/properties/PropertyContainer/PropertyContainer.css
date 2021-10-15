@@ -4,7 +4,7 @@
 }
 .blueprint-property-grid {
     display: grid;
-    padding: 10px;
-    justify-items: start;
+    padding: 5px;
+    justify-items: stretch;
 }
 

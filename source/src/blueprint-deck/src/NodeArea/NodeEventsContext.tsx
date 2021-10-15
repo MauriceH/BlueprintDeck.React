@@ -11,8 +11,7 @@ export const NodeEventsContext = React.createContext<NodeEvents>({
 
 export const useNodeDelete = () => {
     const context = useContext(NodeEventsContext)
-    const callback = useCallback((node: BlueprintNodeData)=>{
+    return useCallback((node: BlueprintNodeData) => {
         context.onNodeDelete(node);
-    },[context])
-    return callback
+    }, [context])
 }
