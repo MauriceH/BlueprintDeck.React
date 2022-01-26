@@ -4,12 +4,12 @@ import {BluePrintRegistry} from "../model/BluePrintRegistry";
 export const TestRegistry : BluePrintRegistry = {
     nodeTypes: [
         {
-            key: "Activate",
+            id: "Activate",
             title: "Activate",
             ports: [
                 {
                     mandatory: false,
-                    inputOutputType: 1,
+                    direction: 'Output',
                     dataMode: 0,
                     key: "Event",
                     title: "OnActivate"
@@ -17,12 +17,12 @@ export const TestRegistry : BluePrintRegistry = {
             ]
         },
         {
-            key: "TestNode",
+            id: "TestNode",
             title: "Test node",
             ports: [
                 {
                     mandatory: true,
-                    inputOutputType: 0,
+                    direction: 'Input',
                     dataMode: 0,
                     key: "Trigger",
                     title: "Trigger"
@@ -30,19 +30,19 @@ export const TestRegistry : BluePrintRegistry = {
             ]
         },
         {
-            key: "Delay",
+            id: "Delay",
             title: "Delay",
             ports: [
                 {
                     mandatory: true,
-                    inputOutputType: 0,
+                    direction: 'Input',
                     dataMode: 0,
                     key: "Input",
                     title: "Input",
                 },
                 {
                     mandatory: true,
-                    inputOutputType: 0,
+                    direction: 'Input',
                     dataMode: 1,
                     key: "Duration",
                     title: "Duration",
@@ -51,7 +51,7 @@ export const TestRegistry : BluePrintRegistry = {
                 },
                 {
                     mandatory: false,
-                    inputOutputType: 1,
+                    direction: 'Output',
                     dataMode: 0,
                     key: "Output",
                     title: "Output",
@@ -79,44 +79,6 @@ export const TestRegistry : BluePrintRegistry = {
             id: "String-6c7f5dbea96fb021d061f17d2a3551ebd23d40fe",
             typeName: "System.String",
             title: "String"
-        }
-    ],
-    constantValueNodeTypes: [
-        {
-            key: "double",
-            title: "Double value",
-            port: {
-                key: "value",
-                title: "Value",
-                typeId: "Double-b5e8a25b5e551c75505b680d43aeb8b00e72fbbf",
-            }
-        },
-        {
-            key: "int32",
-            title: "Int32 value",
-            port: {
-                key: "value",
-                title: "Value",
-                typeId: "Int32-34201a9f7ecd13ef7ed694c1018ae55b83a9b3da",
-            }
-        },
-        {
-            key: "timespan",
-            title: "TimeSpan value",
-            port: {
-                key: "value",
-                title: "Value",
-                typeId: "TimeSpan-cd433911a1f798c91be8f5412f4939b4b0545f2a",
-            }
-        },
-        {
-            key: "string",
-            title: "String value",
-            port: {
-                key: "value",
-                title: "Value",
-                typeId: "String-6c7f5dbea96fb021d061f17d2a3551ebd23d40fe",
-            }
         }
     ]
 }

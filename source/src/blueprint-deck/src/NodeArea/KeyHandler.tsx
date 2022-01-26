@@ -1,6 +1,6 @@
 import {isNode, useStoreState} from "react-flow-renderer";
-import React, {EventHandler, KeyboardEvent, KeyboardEventHandler, useCallback, useEffect, useRef} from "react";
-import {NodeEventsContext, useNodeDelete} from "./NodeEventsContext";
+import React, {KeyboardEvent, useCallback, useEffect, useRef} from "react";
+import {useNodeDelete} from "./NodeEventsContext";
 import {BlueprintNodeData} from "../model/NodeData";
 
 export const KeyHandler = () => {

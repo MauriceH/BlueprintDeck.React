@@ -2,22 +2,19 @@ import {Blueprint} from "./Blueprint";
 
 interface RegistryPortBase {
     key: string;
-    title: string;
+    title?: string;
     typeId?: string;
     defaultValue?: string
 }
 
 export interface RegistryNodePort extends RegistryPortBase {
     mandatory: boolean;
-    inputOutputType: PortInputOutputType;
+    direction: PortDirection;
     dataMode: PortDataMode;
     dataType?: RegistryDataType
 }
 
-export enum PortInputOutputType {
-    Input=0,
-    Output=1
-}
+export type PortDirection  = 'Input' | 'Output'
 
 export enum PortDataMode {
     None=0,
@@ -25,10 +22,16 @@ export enum PortDataMode {
 }
 
 
-export interface RegistryNodeType {
-    key: string;
+export interface RegistryNode {
+    id: string;
     title: string;
     ports: RegistryNodePort[];
+    properties: RegistryProperty[]
+}
+
+export interface RegistryProperty {
+    typeId: string;
+    name: string;
 }
 
 interface RegistryDataType {
@@ -37,16 +40,9 @@ interface RegistryDataType {
     title: string;
 }
 
-export interface RegistryConstantValueType {
-    key: string;
-    title: string;
-    port: RegistryPortBase;
-}
-
 export interface BluePrintRegistry {
-    nodeTypes: RegistryNodeType[ ],
+    nodeTypes: RegistryNode[ ],
     dataTypes: RegistryDataType[ ],
-    constantValueNodeTypes: RegistryConstantValueType[]
 }
 
-export const emptyDesign: Blueprint= {connections: [], nodes: [], constantValues: []};
+export const emptyDesign: Blueprint= {connections: [], nodes: []};

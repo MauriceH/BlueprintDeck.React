@@ -5,31 +5,27 @@ interface Location {
 
 export interface DesignNode {
     location: Location;
-    title: string;
-    key: string;
+    title?: string;
+    id: string;
     nodeTypeKey: string;
-    data?: any;
+    properties?: DesignPropertyValues;
 }
 
+export declare type DesignPropertyValues = {
+    [key: string]: any;
+}
+
+
+
 export interface DesignConnection {
-    key: string;
+    id: string;
     nodeFrom: string;
     nodePortFrom: string;
     nodeTo: string;
     nodePortTo: string;
 }
 
-export interface DesignConstantValue {
-    location: Location;
-    title: string;
-    key: string;
-    nodeTypeKey: string;
-    data?: any;
-    value: string;
-}
-
 export interface Blueprint {
     nodes: DesignNode[],
-    connections: DesignConnection[],
-    constantValues: DesignConstantValue[]
+    connections: DesignConnection[]
 }

@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import {BlueprintNodeData, NodeData} from "../model/NodeData";
 import {NodeTitle} from "./components/NodeTitle/NodeTitle";
 import {NodePort} from "./components/NodePort/NodePort";
-import {PortInputOutputType} from "../model/BluePrintRegistry";
 import "./BaseNode.css";
 import {Edge, useStoreState} from "react-flow-renderer";
 import TimesSolidIcon from './times-solid.svg'
@@ -40,9 +39,8 @@ export const BaseNode: FC<BaseNodeProps> = ({
 
 
     const isSelected = selectedElements?.find(x => x.id == node.id) != null;
-
     const inputs = node.data?.ports
-        ?.filter((x) => x.inputOutputType == PortInputOutputType.Input)
+        ?.filter((x) => x.direction == 'Input')
         .map(port => {
             const nodeTypeVisible = isSelected || selectedElements?.find(x => (x as Edge<NodeData>).target == node.id && (x as Edge<NodeData>).targetHandle == port.key) != null
             const alreadyConnected = inputEdges.find(x => x.targetHandle == port.key) != null
@@ -57,7 +55,7 @@ export const BaseNode: FC<BaseNodeProps> = ({
         });
 
     const outputs = node.data?.ports
-        ?.filter((x) => x.inputOutputType == PortInputOutputType.Output)
+        ?.filter((x) => x.direction == 'Output')
         .map(port => {
             const nodeTypeVisible = isSelected || selectedElements?.find(x => (x as Edge<NodeData>).source == node.id && (x as Edge<NodeData>).sourceHandle == port.key) != null
             const alreadyConnected = outputEdges.find(x => x.sourceHandle == port.key) != null
@@ -78,6 +76,7 @@ export const BaseNode: FC<BaseNodeProps> = ({
             </div>
             <div className={"contentContainer"}>
                 <NodeTitle label={node.data?.label ?? "Node"}/>
+                {JSON.stringify(node.data?.properties)}
                 {children}
             </div>
             <div className={"portContainer rightPortContainer"}>

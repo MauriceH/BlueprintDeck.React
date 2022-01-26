@@ -8,36 +8,36 @@ import ReactFlow, {
     Elements,
     isEdge,
     isNode,
-    OnLoadParams, useStoreState
+    OnLoadParams
 } from "react-flow-renderer";
-import React, {MouseEvent, useCallback, useRef, useState} from "react";
+import React, {MouseEvent, useCallback, useContext, useRef, useState} from "react";
 import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
 import {Blueprint} from "../model/Blueprint";
 import {createElements, NodeTypes} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
-import {defaultReactNodes} from "../nodes/defaults/defaultReactNodes";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
 import {SidePanel} from "../side-panel/components/SidePanel/SidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
-import {Node} from "react-flow-renderer/dist/types";
+import {Node, NodeTypesType} from "react-flow-renderer/dist/types";
 import {NodeEvents, NodeEventsContext} from "./NodeEventsContext";
 import {KeyHandler} from "./KeyHandler";
+import {NodeTypesContext} from "./NodeTypesContext";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
     design?: Blueprint
-    nodeTypes: NodeTypes
+    nodeTypes: NodeTypesType
     onDesignChanged?: (design: Blueprint) => void;
 }
 
 
 export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAreaOptions) => {
 
-
-    const [elements, setElements] = useState<Elements<NodeData>>(() => createElements(registry, design ?? emptyDesign));
+    const nodeTypesContext = useContext(NodeTypesContext);
+    const [elements, setElements] = useState<Elements<NodeData>>(() => createElements(registry, design ?? emptyDesign, nodeTypesContext));
     const [isConnectable, setConnectable] = useState(true);
 
     const onConnect = (connection: Edge | Connection) => {
@@ -84,6 +84,7 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     };
 
 
+
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>
         <NodeEventsContext.Provider value={nodeEvents}>
             <ReactFlow
@@ -91,7 +92,7 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
                 onLoad={onLoad}
                 elements={elements}
                 nodesConnectable={isConnectable}
-                nodeTypes={{...defaultReactNodes, ...nodeTypes}}
+                nodeTypes={nodeTypesContext}
                 onConnect={onConnect}
                 connectionLineStyle={{...connectionStyle}}
                 snapGrid={[10, 10]}

@@ -9,6 +9,8 @@ import {TestRegistry} from "./TestRegistry";
 import {TopBarActiveButton} from "./components/TopBarButton";
 import CodeSolidIco from './components/code-solid.svg'
 import {JsonDesignEditor} from "./components/JsonDesignEditor";
+import {BluePrintRegistry} from "../model/BluePrintRegistry";
+import {Blueprint} from "../model/Blueprint";
 
 const myTypes: NodeTypes = {
     TestNode: (node: BlueprintNodeData) => (
@@ -19,7 +21,8 @@ const myTypes: NodeTypes = {
 function App() {
 
     const [showJson, setShowJson] = useState(false)
-    const [design, setDesign] = useState(TestDesign)
+    const [design, setDesign] = useState<Blueprint | null>(null);
+    const [registry, setRegistry] = useState<BluePrintRegistry | null>(null);
 
     useEffect(() => {
 
@@ -27,7 +30,27 @@ function App() {
 
     }, [design])
 
+    useEffect(()=>{
+        fetch("http://localhost:15000/api/Blueprint/registry")
+            .then(response=>response.json() )
+            .then(data => {
+                const newRegistry =  (data as BluePrintRegistry);
+                setRegistry(newRegistry);
+            })
+    }, [setRegistry])
 
+    useEffect(()=>{
+        if(registry == null) return;
+        fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
+            .then(response=>response.json() )
+            .then(data => {
+                console.log('data', data);
+                const newDesign =  (data as Blueprint);
+                setDesign(newDesign);
+            })
+    }, [registry, setDesign])
+
+    if(design == null) return <div>Loading</div>
 
     return (
         <div className="App" style={{display: 'flex', flexDirection: 'column'}}>
@@ -52,12 +75,16 @@ function App() {
             <JsonDesignEditor visible={showJson} design={design} setDesign={setDesign}/>
             <div style={{display: 'flex', flexDirection: 'column', flex: '1 0 auto'}}>
 
-                <BlueprintDeck
+                {registry == null && <div>LAODING</div>}
+
+                {registry != null &&
+                  <BlueprintDeck
                     design={design}
-                    registry={TestRegistry}
+                    registry={registry}
                     nodeTypes={myTypes}
                     onDesignChanged={setDesign}
-                />
+                  />
+                }
             </div>
 
         </div>

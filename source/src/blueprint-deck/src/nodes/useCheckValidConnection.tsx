@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
-import {Connection, Edge, Node, useStoreState} from "react-flow-renderer";
-import {PortDataMode, PortInputOutputType, RegistryNodePort} from "../model/BluePrintRegistry";
+import {Connection, Node, useStoreState} from "react-flow-renderer";
+import {PortDataMode, RegistryNodePort} from "../model/BluePrintRegistry";
 import {NodeData} from "../model/NodeData";
 
 export const useCheckValidConnection = (port: RegistryNodePort) => {
@@ -12,19 +12,19 @@ export const useCheckValidConnection = (port: RegistryNodePort) => {
 
         const checkId = connection.sourceHandle == port.key ? connection.target : connection.source;
         const checkPortId = connection.sourceHandle == port.key ? connection.targetHandle : connection.sourceHandle;
-        const checkPortDirection = port.inputOutputType == PortInputOutputType.Input ? PortInputOutputType.Output : PortInputOutputType.Input;
+        const checkPortDirection = port.direction == 'Input' ? 'Output' : 'Input';
 
         const checkNode = nodes.find(e => e.id == checkId) as Node<NodeData>;
         if (checkNode?.data?.ports == null) return false;
 
 
         const checkPort = checkNode.data.ports.find(p => {
-            return p.key == checkPortId && p.inputOutputType == checkPortDirection;
+            return p.key == checkPortId && p.direction == checkPortDirection;
         });
         if (checkPort == null) return false;
         if (checkPort.dataMode != port.dataMode) return false;
 
-        if(checkPort.inputOutputType == PortInputOutputType.Input) {
+        if(checkPort.direction == 'Input') {
             if(edges.find(x=> x.target == checkNode.id && x.targetHandle == checkPort.key)) return false;
             if(edges.find(x=> x.source == connection.source && x.sourceHandle == connection.sourceHandle)) return false;
         } else {

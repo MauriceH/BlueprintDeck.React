@@ -1,7 +1,7 @@
 import React from "react";
 import {useStoreState} from "react-flow-renderer";
 import {BlueprintNodeData} from "../../../model/NodeData";
-import {PortInputOutputType} from "../../../model/BluePrintRegistry";
+import {PortDirection} from "../../../model/BluePrintRegistry";
 import './PropertyContent.css'
 
 
@@ -36,13 +36,13 @@ export const PropertyContent = () => {
         <PropertySection title={"Input-Ports"}/>
 
         {
-            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Input).map(port =>
+            node.data?.ports?.filter(x => x.direction == 'Input').map(port =>
                 <div key={"input-" + port.key}><label >{port.title}</label></div>
             )
         }
         <PropertySection title={"Output-Ports"}/>
         {
-            node.data?.ports?.filter(x => x.inputOutputType == PortInputOutputType.Output).map(port =>
+            node.data?.ports?.filter(x => x.direction == 'Output').map(port =>
                 <div key={"output-" + port.key}><label>{port.title}</label></div>
             )
         }

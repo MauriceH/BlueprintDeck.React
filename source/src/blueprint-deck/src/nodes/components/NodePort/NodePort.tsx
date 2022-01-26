@@ -1,6 +1,6 @@
 import {Handle, Position} from "react-flow-renderer";
 import React from "react";
-import {PortInputOutputType, RegistryNodePort} from "../../../model/BluePrintRegistry";
+import {RegistryNodePort} from "../../../model/BluePrintRegistry";
 import './NodePort.css'
 import './NodePortAnimation.css'
 import {HandleProps} from "react-flow-renderer/dist/types";
@@ -17,12 +17,12 @@ export function NodePort({typeVisible, port, displayType, isConnectable, ...prop
 
     const checkConnection = useCheckValidConnection(port);
 
-    const isInput = port.inputOutputType == PortInputOutputType.Input;
+    const isInput = port.direction == 'Input';
     const handleType = isInput ? 'target' : 'source';
     const position = isInput ? Position.Left : Position.Right;
-    const containerCssName = port.inputOutputType == PortInputOutputType.Input ? 'left' : 'right'
+    const containerCssName = port.direction =='Input' ? 'left' : 'right'
     const typeTitle = port.dataType?.title ?? 'Action';
-    const portTitle = port.title ?? 'Action';
+    const portTitle = port.title ?? port.key ?? 'Action';
 
     const handleClassName = displayType == "suggestion" ? 'port-suggestion' : displayType == "unConnectable" ? 'port-unconnectable' : '';
 
