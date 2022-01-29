@@ -1,43 +1,70 @@
-import React from "react";
-import {useStoreState} from "react-flow-renderer";
+import React, {useCallback, useEffect, useState} from "react";
 import {BlueprintNodeData} from "../../../model/NodeData";
-import {PortDirection} from "../../../model/BluePrintRegistry";
 import './PropertyContent.css'
+import {RegistryProperty} from "../../../model/BluePrintRegistry";
 
 
-const PropertySection = ({title}:{title: string}) => {
-    return <h4 style={{width: '100%', textAlign: "left", padding: '4px 0px', marginBottom: '5px', borderBottom: 'solid 1px #ccc'}}>{title}</h4>;
+const PropertyEditor = ({node, property}:{node: BlueprintNodeData, property: RegistryProperty}) => {
+    const [value, setValue] = useState<string>("")
+
+    useEffect(()=>{
+        if(node.data?.properties == null) return;
+        const propValue = node.data?.properties[camelize(property.name)] as any
+        setValue(propValue);
+    },[node,setValue])
+
+
+    const onChange = useCallback(value=> {
+        if(node.data == null) return;
+        if(node.data.properties == null) {
+            node.data.properties = {}
+        }
+        node.data.properties[camelize(property.name)] = value;
+        setValue(value)
+    },[node,setValue]);
+
+
+    return (
+        <div className={"property-value"}>
+            <label>{property.name}:</label>
+            <input className={"text-input"} type="text" value={value} onChange={e =>onChange(e.target.value)} />
+        </div>
+    )
+}
+
+const PropertySection = ({title}: { title: string }) => {
+    return <h4 style={{
+        width: '100%',
+        textAlign: "left",
+        padding: '4px 0px',
+        marginBottom: '5px',
+        borderBottom: 'solid 1px #ccc'
+    }}>{title}</h4>;
 };
 
-export const PropertyContent = () => {
-    const selected = useStoreState(x => x.selectedElements);
+export const PropertyContent = ({node}: { node: BlueprintNodeData }) => {
 
-    const noSelection = (selected?.length ?? 0) <= 0;
-
-
-    if (noSelection) {
-        return <><span>Keine Selektion</span></>
-    }
-
-    const selectedElement = selected![0];
-
-    if (selectedElement.type == 'connection') return <></>
-
-    const node = selectedElement as BlueprintNodeData;
 
     return <>
-        <PropertySection title={"Default"}/>
         <div className={"property-value"}>
-            <label style={{display:"block"}}>Id:</label>
-            {/*<input type={"text"} value={node.id}/>*/}
+            <label>Id:</label>
+            <div style={{fontSize: '0.7em', display: "inline"}}>{node.id}</div>
         </div>
-        <div className={"property-value"}><label>Title:</label>{node.data?.label}</div>
-        <div className={"property-value"}><label>Position:</label>{node.data?.label}</div>
+        <div className={"property-value"}><label>Title:</label>
+            {node.data?.label}</div>
+        <div className={"property-value"}><label>Position:</label>X:{node.position.x}</div>
+
+        <PropertySection title={"Properties"}/>
+
+        {node.data?.registryNode.properties.map(property =>
+            (<PropertyEditor node={node} property={property} key={property.name}/>))}
+
+
         <PropertySection title={"Input-Ports"}/>
 
         {
             node.data?.ports?.filter(x => x.direction == 'Input').map(port =>
-                <div key={"input-" + port.key}><label >{port.title}</label></div>
+                <div key={"input-" + port.key}><label>{port.title}</label></div>
             )
         }
         <PropertySection title={"Output-Ports"}/>
@@ -48,3 +75,7 @@ export const PropertyContent = () => {
         }
     </>
 }
+
+const camelize = (str: string) => str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+    return index === 0 ? word.toLowerCase() : word.toUpperCase();
+}).replace(/\s+/g, '');

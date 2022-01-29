@@ -1,15 +1,24 @@
 Label {
+    display: block;
     font-weight: bold;
-    font-size: 0.9em;
 }
 
 .property-value > Label {
     width: 80px;
     display: inline-block;
     text-align: left;
+    line-height: 16pt;
 }
 
 .property-value {
     font-size: 0.9em;
+}
+
+.text-input {
+    border: 0;
+    border-bottom: 1px solid #282c34 ;
+}
+.text-input:focus {
+    outline: 0;
 }
 
