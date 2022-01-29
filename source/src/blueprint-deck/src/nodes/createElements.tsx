@@ -36,6 +36,7 @@ export const createNodeElement = (registry: BluePrintRegistry, node: DesignNode,
                 const dataType = registry.dataTypes.find(d => d.id == x.typeId)
                 return {...x, dataType}
             }),
+            registryNode: nodeType,
             properties: node.properties
         },
     };

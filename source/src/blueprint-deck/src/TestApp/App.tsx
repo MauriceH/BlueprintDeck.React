@@ -4,8 +4,6 @@ import {BlueprintDeck} from "../BlueprintDeck";
 import {NodeTypes} from "../nodes/createElements";
 import {BlueprintNodeData} from "../model/NodeData";
 import {BaseNode} from "../nodes/BaseNode";
-import {TestDesign} from "./TestDesign";
-import {TestRegistry} from "./TestRegistry";
 import {TopBarActiveButton} from "./components/TopBarButton";
 import CodeSolidIco from './components/code-solid.svg'
 import {JsonDesignEditor} from "./components/JsonDesignEditor";
@@ -15,6 +13,9 @@ import {Blueprint} from "../model/Blueprint";
 const myTypes: NodeTypes = {
     TestNode: (node: BlueprintNodeData) => (
         <BaseNode node={node}/>
+    ),
+    PortDelay: (node: BlueprintNodeData) => (
+        <BaseNode node={node}>Hallo</BaseNode>
     ),
 };
 
@@ -31,21 +32,31 @@ function App() {
     }, [design])
 
     useEffect(()=>{
+        const data = localStorage.getItem("REGISTRY")
+        if(data == null) return;
+        const registry = JSON.parse(data) as BluePrintRegistry;
+        setRegistry(registry);
         fetch("http://localhost:15000/api/Blueprint/registry")
             .then(response=>response.json() )
             .then(data => {
                 const newRegistry =  (data as BluePrintRegistry);
+                localStorage.setItem("REGISTRY", JSON.stringify(newRegistry))
                 setRegistry(newRegistry);
             })
     }, [setRegistry])
 
     useEffect(()=>{
         if(registry == null) return;
+        const data = localStorage.getItem("DESIGN")
+        if(data == null) return;
+        const design = JSON.parse(data) as Blueprint;
+        setDesign(design);
         fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
             .then(response=>response.json() )
             .then(data => {
                 console.log('data', data);
                 const newDesign =  (data as Blueprint);
+                localStorage.setItem("DESIGN", JSON.stringify(newDesign))
                 setDesign(newDesign);
             })
     }, [registry, setDesign])

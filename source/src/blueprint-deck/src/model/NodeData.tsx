@@ -1,6 +1,7 @@
-import {RegistryNodePort} from "./BluePrintRegistry";
+import {RegistryNode, RegistryNodePort} from "./BluePrintRegistry";
 import {ReactNode} from "react";
 import {Node, Edge} from "react-flow-renderer";
+import {DesignPropertyValues} from "./Blueprint";
 
 export type BlueprintNodeData = Node<NodeData>;
 
@@ -10,7 +11,8 @@ export interface NodeData {
     label: string,
     type: string,
     ports?: RegistryNodePort[],
-    properties?: any,
+    properties?: DesignPropertyValues,
     nodeType?: (node: Node<NodeData>) => ReactNode,
     value?: string,
+    registryNode: RegistryNode
 }
