@@ -1,7 +1,7 @@
 .blueprint-node-pool-entry {
-    width: 190px;
+    width: 200px;
     position: inherit;
-    padding: 5px;
+    padding: 8px;
     cursor: pointer;
     font-size: 1em;
     border-radius: 5px;

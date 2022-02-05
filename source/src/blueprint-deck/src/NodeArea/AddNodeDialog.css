@@ -1,0 +1,25 @@
+
+
+.add-node-dialog-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    max-width: 1200px;
+    min-width: 700px;
+    width: 80%;
+    height: 60%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    justify-content: start;
+    align-items: start;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.46);
+    box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.46);
+}
+
+.add-node-dialog-title {
+    margin-left: 15px;
+    font-size: 1.3em;
+}

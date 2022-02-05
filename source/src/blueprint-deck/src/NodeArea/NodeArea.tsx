@@ -17,7 +17,7 @@ import {createElements, NodeTypes} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
-import {SidePanel} from "../side-panel/components/SidePanel/SidePanel";
+import {PreferencePanel, StackableSidePanel} from "../side-panel/components/SidePanel/StackableSidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
@@ -25,6 +25,8 @@ import {Node, NodeTypesType} from "react-flow-renderer/dist/types";
 import {NodeEvents, NodeEventsContext} from "./NodeEventsContext";
 import {KeyHandler} from "./KeyHandler";
 import {NodeTypesContext} from "./NodeTypesContext";
+import {AddNodeButton} from "./AddNodeButton";
+import {AddNodeDialog} from "./AddNodeDialog";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry
@@ -83,9 +85,19 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
         }
     };
 
+    const [addDialogVisible, setAddDialogVisible] = useState(false);
+    const onShowAddDialog = useCallback(()=>{
+        console.log('show')
+        setAddDialogVisible(true)
+    },[setAddDialogVisible])
 
+    const onHideAddDialog = useCallback(()=>{
+        console.log('hide')
+        setAddDialogVisible(false)
+    },[setAddDialogVisible])
 
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>
+        {addDialogVisible && <AddNodeDialog onClose={onHideAddDialog}/> }
         <NodeEventsContext.Provider value={nodeEvents}>
             <ReactFlow
                 ref={reactFlowWrapper}
@@ -105,9 +117,12 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
             >
                 <KeyHandler />
-                <Background variant={BackgroundVariant.Dots} gap={10}/>
                 <Controls/>
-                <SidePanel/>
+                <Background variant={BackgroundVariant.Dots} gap={10}/>
+                <StackableSidePanel>
+                    <AddNodeButton onClick={onShowAddDialog}/>
+                    <PreferencePanel />
+                </StackableSidePanel>
             </ReactFlow>
         </NodeEventsContext.Provider>
 

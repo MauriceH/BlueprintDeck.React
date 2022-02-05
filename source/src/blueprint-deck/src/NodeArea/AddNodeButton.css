@@ -1,0 +1,35 @@
+
+
+.add-node-button-container {
+    width: 100px;
+    height: 100px;
+    margin-left: -100px;
+    align-self: end;
+    z-index: -50;
+}
+
+.add-node-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    color: white;
+    font-size: 2.5em;
+    vertical-align: center;
+    padding: 0;
+    line-height: 60px;
+    background-color: #32b664;
+    user-select: none;
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.46);
+    box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.46);
+    cursor: pointer;
+}
+.add-node-button:hover   {
+    background-color: #37c970;
+}
+.add-node-button:active   {
+    margin-left: 3px;
+    margin-top: 2px;
+    background-color: #2b9f57;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

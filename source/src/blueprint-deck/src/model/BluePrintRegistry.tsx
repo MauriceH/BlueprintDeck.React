@@ -32,9 +32,10 @@ export interface RegistryNode {
 export interface RegistryProperty {
     typeId: string;
     name: string;
+    dataType?: RegistryDataType
 }
 
-interface RegistryDataType {
+export interface RegistryDataType {
     id: string;
     typeName: string;
     title: string;

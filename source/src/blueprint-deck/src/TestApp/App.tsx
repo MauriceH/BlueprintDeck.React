@@ -36,13 +36,13 @@ function App() {
         if(data == null) return;
         const registry = JSON.parse(data) as BluePrintRegistry;
         setRegistry(registry);
-        fetch("http://localhost:15000/api/Blueprint/registry")
-            .then(response=>response.json() )
-            .then(data => {
-                const newRegistry =  (data as BluePrintRegistry);
-                localStorage.setItem("REGISTRY", JSON.stringify(newRegistry))
-                setRegistry(newRegistry);
-            })
+        // fetch("http://localhost:15000/api/Blueprint/registry")
+        //     .then(response=>response.json() )
+        //     .then(data => {
+        //         const newRegistry =  (data as BluePrintRegistry);
+        //         localStorage.setItem("REGISTRY", JSON.stringify(newRegistry))
+        //         setRegistry(newRegistry);
+        //     })
     }, [setRegistry])
 
     useEffect(()=>{
@@ -51,14 +51,14 @@ function App() {
         if(data == null) return;
         const design = JSON.parse(data) as Blueprint;
         setDesign(design);
-        fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
-            .then(response=>response.json() )
-            .then(data => {
-                console.log('data', data);
-                const newDesign =  (data as Blueprint);
-                localStorage.setItem("DESIGN", JSON.stringify(newDesign))
-                setDesign(newDesign);
-            })
+        // fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
+        //     .then(response=>response.json() )
+        //     .then(data => {
+        //         console.log('data', data);
+        //         const newDesign =  (data as Blueprint);
+        //         localStorage.setItem("DESIGN", JSON.stringify(newDesign))
+        //         setDesign(newDesign);
+        //     })
     }, [registry, setDesign])
 
     if(design == null) return <div>Loading</div>

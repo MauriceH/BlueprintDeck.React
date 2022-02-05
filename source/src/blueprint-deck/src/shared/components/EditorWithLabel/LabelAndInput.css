@@ -1,0 +1,29 @@
+.label-and-input_label {
+    width: 150px;
+    font-size: 14pt;
+    font-weight: normal;
+    text-align: left;
+    color: #6d6d6d;
+}
+
+.label-and-input_container {
+    flex: 0 0 auto;
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    align-items: center;
+}
+
+.label-and-input_input {
+    flex: 1 0 auto;
+    border: 0;
+    border-bottom: solid 1px #DADADA;
+    line-height: 25px;
+    padding: 5px 10px;
+    font-size: 12pt;
+    word-wrap: break-word;
+}
+.label-and-input_input:focus {
+    outline: 0;
+}

@@ -1,9 +1,11 @@
 .blueprint-node-pool-container {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     overflow: auto;
     display: flex;
     padding: 15px;
-    gap: 15px;
-    flex-direction: column;
-    align-items: start
+    gap: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+
 }
