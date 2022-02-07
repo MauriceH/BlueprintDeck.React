@@ -27,10 +27,12 @@ export const PropertyContainer = () => {
 
 
     return <div className="property-container">
-        <LabelAndInput label={"Id"} readonly={true} type={"text"} value={node.id}/>
-        <LabelAndInput label={"Title"} readonly={true} type={"text"} value={node.data?.label}/>
-        <LabelAndInput label={"Position"} readonly={true} type={"text"}
-                       value={'X: ' + node.position.x + ' Y: ' + node.position.y}/>
+        <div style={{padding: '5px 5px 15px 5px'}}>
+            <LabelAndInput label={"Id"} readonly={true} type={"text"} value={node.id}/>
+            <LabelAndInput label={"Title"} readonly={true} type={"text"} value={node.data?.label}/>
+            <LabelAndInput label={"Position"} readonly={true} type={"text"}
+                           value={'X: ' + node.position.x + ' Y: ' + node.position.y}/>
+        </div>
 
         {(node.data?.registryNode?.properties?.length ?? 0) > 0 &&
           <PropertySection title={"Properties"}>

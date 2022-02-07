@@ -1,0 +1,5 @@
+.blueprint-side-panel {
+    z-Index: 5;
+    display: flex;
+    flex-direction: row;
+}

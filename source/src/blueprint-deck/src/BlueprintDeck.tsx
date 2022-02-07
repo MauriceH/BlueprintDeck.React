@@ -15,9 +15,11 @@ const addRegistryTypeReferences = (registry: BluePrintRegistry): BluePrintRegist
         nodeTypes: registry.nodeTypes.map(nodeType => {
             return {
                 ...nodeType, properties: nodeType.properties?.map(prop => {
-                    return {...prop, dataType: registry.dataTypes.find(o => {
+                    return {
+                        ...prop, dataType: registry.dataTypes.find(o => {
                             return o.id == prop.typeId;
-                        })}
+                        })
+                    }
                 })
             }
         }), dataTypes: registry.dataTypes
@@ -28,10 +30,10 @@ const addRegistryTypeReferences = (registry: BluePrintRegistry): BluePrintRegist
 export const BlueprintDeck = (options: BlueprintDeckOptions) => {
     const registry = addRegistryTypeReferences(options.registry);
     return (
-        <div style={{width: '100%', height: '100%'}}>
+        <div className={"blueprintDeck"}>
             <RegistryContext.Provider value={registry}>
                 <NodeTypesContext.Provider value={{...defaultReactNodes, ...options.nodeTypes}}>
-                    <NodeArea {...options} registry={registry}/>
+                    <NodeArea  {...options} registry={registry}/>
                 </NodeTypesContext.Provider>
             </RegistryContext.Provider>
         </div>)

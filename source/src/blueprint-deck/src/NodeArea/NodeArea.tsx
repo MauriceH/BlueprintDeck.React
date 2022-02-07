@@ -17,7 +17,7 @@ import {createElements, NodeTypes} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
-import {PreferencePanel, StackableSidePanel} from "../side-panel/components/SidePanel/StackableSidePanel";
+import {StackableSidePanel} from "../side-panel/components/StackableSidePanel/StackableSidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
 import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
@@ -27,6 +27,7 @@ import {KeyHandler} from "./KeyHandler";
 import {NodeTypesContext} from "./NodeTypesContext";
 import {AddNodeButton} from "./AddNodeButton";
 import {AddNodeDialog} from "./AddNodeDialog";
+import {PreferencePanel} from "../side-panel/node-preferences/PreferencePanel";
 
 export interface NodeAreaOptions {
     registry: BluePrintRegistry

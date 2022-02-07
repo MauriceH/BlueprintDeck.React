@@ -13,10 +13,7 @@ import {Blueprint} from "../model/Blueprint";
 const myTypes: NodeTypes = {
     TestNode: (node: BlueprintNodeData) => (
         <BaseNode node={node}/>
-    ),
-    PortDelay: (node: BlueprintNodeData) => (
-        <BaseNode node={node}>Hallo</BaseNode>
-    ),
+    )
 };
 
 function App() {
@@ -25,11 +22,11 @@ function App() {
     const [design, setDesign] = useState<Blueprint | null>(null);
     const [registry, setRegistry] = useState<BluePrintRegistry | null>(null);
 
-    useEffect(() => {
-
-        console.log('App.onDesign', design)
-
-    }, [design])
+    // useEffect(() => {
+    //
+    //     console.log('App.onDesign', design)
+    //
+    // }, [design])
 
     useEffect(()=>{
         const data = localStorage.getItem("REGISTRY")

@@ -1,6 +1,6 @@
 .label-and-input_label {
     width: 150px;
-    font-size: 14pt;
+    font-size: 11pt;
     font-weight: normal;
     text-align: left;
     color: #6d6d6d;
@@ -11,8 +11,8 @@
     align-self: stretch;
     display: flex;
     flex-direction: row;
-    padding: 8px;
     align-items: center;
+    padding: 4px;
 }
 
 .label-and-input_input {
@@ -20,9 +20,10 @@
     border: 0;
     border-bottom: solid 1px #DADADA;
     line-height: 25px;
-    padding: 5px 10px;
-    font-size: 12pt;
+    padding: 2px 5px;
+    font-size: 10.5pt;
     word-wrap: break-word;
+    color: #494949;
 }
 .label-and-input_input:focus {
     outline: 0;

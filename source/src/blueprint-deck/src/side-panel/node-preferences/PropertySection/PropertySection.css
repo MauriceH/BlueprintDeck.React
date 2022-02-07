@@ -1,6 +1,6 @@
 .property-section_header {
-    width: 100%;
     text-align: left;
+    border-top: solid 1px #e7e7e7;
     border-bottom: solid 1px #ccc;
     background-color: #f1f1f1;
     display: flex;
@@ -11,19 +11,21 @@
 .property-section_header_title {
     display: inline;
     flex: 1 0 auto;
-    padding: 0 10px;
+    padding: 0 8px;
     align-self: center;
+    color: #5b5b5b;
 }
 
 .property-section_header_button {
     display: block;
     flex: 0 0 40px;
-    font-size: 30pt;
     user-select: none;
     color: #7e7e7e;
+    align-self: center;
 }
 
 .property-section_content-container {
+    padding: 5px 5px 15px 5px;
 }
 
 .property-section_content-container_open {
