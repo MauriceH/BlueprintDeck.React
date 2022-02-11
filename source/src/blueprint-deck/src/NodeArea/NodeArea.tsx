@@ -11,9 +11,9 @@ import ReactFlow, {
     OnLoadParams
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useContext, useRef, useState} from "react";
-import {BluePrintRegistry, emptyDesign} from "../model/BluePrintRegistry";
+import {BluePrintRegistry, emptyDesign, NodePropertyEditors, PropertyTypeEditors} from "../model/BluePrintRegistry";
 import {Blueprint} from "../model/Blueprint";
-import {createElements, NodeTypes} from "../nodes/createElements";
+import {createElements} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";

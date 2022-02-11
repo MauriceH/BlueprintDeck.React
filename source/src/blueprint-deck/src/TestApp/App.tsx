@@ -7,14 +7,23 @@ import {BaseNode} from "../nodes/BaseNode";
 import {TopBarActiveButton} from "./components/TopBarButton";
 import CodeSolidIco from './components/code-solid.svg'
 import {JsonDesignEditor} from "./components/JsonDesignEditor";
-import {BluePrintRegistry} from "../model/BluePrintRegistry";
+import {BluePrintRegistry, NodePropertyEditors, PropertyTypeEditors} from "../model/BluePrintRegistry";
 import {Blueprint} from "../model/Blueprint";
+import {BlindsSelectorPropertyEditor} from "./containers/BlindsSelectorPropertyEditor/BlindsSelectorPropertyEditor";
 
 const myTypes: NodeTypes = {
     TestNode: (node: BlueprintNodeData) => (
         <BaseNode node={node}/>
     )
 };
+
+const myPropertyTypesEditors: PropertyTypeEditors = {
+    "System.TimeSpana": BlindsSelectorPropertyEditor
+}
+
+const myNodePropertyEditors : NodePropertyEditors = {
+    "BlindsActor.BlindsId": BlindsSelectorPropertyEditor
+}
 
 function App() {
 
@@ -90,6 +99,8 @@ function App() {
                     design={design}
                     registry={registry}
                     nodeTypes={myTypes}
+                    propertyTypeEditors={myPropertyTypesEditors}
+                    nodePropertyEditors={myNodePropertyEditors}
                     onDesignChanged={setDesign}
                   />
                 }

@@ -1,0 +1,22 @@
+.labeled-component_label {
+    width: 150px;
+    font-size: 11pt;
+    font-weight: normal;
+    text-align: left;
+    color: #6d6d6d;
+}
+
+.labeled-component_container {
+    flex: 0 0 auto;
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px;
+}
+
+.labeled-component_children {
+    flex: 1 0 auto;
+    display: flex;
+    border: 0;
+}

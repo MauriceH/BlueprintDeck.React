@@ -1,4 +1,6 @@
 import {Blueprint} from "./Blueprint";
+import {FunctionComponent, ReactNode} from "react";
+import {BlueprintNodeData} from "./NodeData";
 
 interface RegistryPortBase {
     key: string;
@@ -14,11 +16,11 @@ export interface RegistryNodePort extends RegistryPortBase {
     dataType?: RegistryDataType
 }
 
-export type PortDirection  = 'Input' | 'Output'
+export type PortDirection = 'Input' | 'Output'
 
 export enum PortDataMode {
-    None=0,
-    WithData=1
+    None = 0,
+    WithData = 1
 }
 
 
@@ -46,4 +48,33 @@ export interface BluePrintRegistry {
     dataTypes: RegistryDataType[ ],
 }
 
-export const emptyDesign: Blueprint= {connections: [], nodes: []};
+export const emptyDesign: Blueprint = {connections: [], nodes: []};
+
+
+export interface PropertyEditorPropTypes {
+    node: BlueprintNodeData,
+    property: RegistryProperty
+}
+
+export interface PropertyTypeEditors {
+    [key: string]: FunctionComponent<PropertyEditorPropTypes>;
+}
+export interface NodePropertyEditors {
+    [key: string]: FunctionComponent<PropertyEditorPropTypes>;
+}
+
+export const addRegistryTypeReferences = (registry: BluePrintRegistry): BluePrintRegistry => {
+    return {
+        nodeTypes: registry.nodeTypes.map(nodeType => {
+            return {
+                ...nodeType, properties: nodeType.properties?.map(prop => {
+                    return {
+                        ...prop, dataType: registry.dataTypes.find(o => {
+                            return o.id == prop.typeId;
+                        })
+                    }
+                })
+            }
+        }), dataTypes: registry.dataTypes
+    }
+}
