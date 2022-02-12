@@ -8,18 +8,23 @@ import ReactFlow, {
     Elements,
     isEdge,
     isNode,
-    OnLoadParams
+    OnLoadParams, useStoreActions
 } from "react-flow-renderer";
 import React, {MouseEvent, useCallback, useContext, useRef, useState} from "react";
-import {BluePrintRegistry, emptyDesign, NodePropertyEditors, PropertyTypeEditors} from "../model/BluePrintRegistry";
-import {Blueprint} from "../model/Blueprint";
-import {createElements} from "../nodes/createElements";
+import {
+    BluePrintRegistry,
+    emptyDesign,
+    NodePropertyEditors,
+    PropertyTypeEditors,
+    RegistryNode
+} from "../model/BluePrintRegistry";
+import {Blueprint, DesignNode} from "../model/Blueprint";
+import {createElements, createNodeElement} from "../nodes/createElements";
 import {NodeData} from "../model/NodeData";
 import {v4 as uuid} from "uuid"
 import {connectionStyle} from "./defaultConnectionStyle";
 import {StackableSidePanel} from "../side-panel/components/StackableSidePanel/StackableSidePanel";
 import {ReactFlowRefType} from "react-flow-renderer/dist/container/ReactFlow";
-import {useNodeAreaDragDrop} from "./useNodeAreaDragDrop";
 import {useNodeAreaBlueprintDesign} from "./useNodeAreaBlueprintDesign";
 import {Node, NodeTypesType} from "react-flow-renderer/dist/types";
 import {NodeEvents, NodeEventsContext} from "./NodeEventsContext";
@@ -69,8 +74,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
     }, [setReactFlowInstance]);
 
 
-    const {onDragOver, onDrop} = useNodeAreaDragDrop(reactFlowWrapper, reactFlowInstance, registry, setElements);
-
 
     const onNodesChanged = useCallback((event: MouseEvent, node: Node) => {
         setElements(oldElements => oldElements.map(x => x.id != node.id ? x : {...x, position: node.position}));
@@ -88,17 +91,33 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
 
     const [addDialogVisible, setAddDialogVisible] = useState(false);
     const onShowAddDialog = useCallback(()=>{
-        console.log('show')
         setAddDialogVisible(true)
     },[setAddDialogVisible])
 
     const onHideAddDialog = useCallback(()=>{
-        console.log('hide')
         setAddDialogVisible(false)
     },[setAddDialogVisible])
 
+    const onAddNode = useCallback((node: RegistryNode)=>{
+        const reactFlowBounds = reactFlowWrapper.current!.getBoundingClientRect();
+        const position = reactFlowInstance!.project({
+            x: (reactFlowBounds.width - 450) / 2 - 100 ,
+            y: reactFlowBounds.height / 2 - 15,
+        });
+        const newNode: DesignNode = {
+            id: uuid(),
+            nodeTypeKey: node.id,
+            title: node.title,
+            location: position
+        }
+        const newNodeElement = createNodeElement(registry, newNode, nodeTypes)
+        console.log('new-element', newNodeElement, newNode)
+        setElements(els => els.concat(newNodeElement!))
+        setAddDialogVisible(false)
+    },[setAddDialogVisible, setElements, reactFlowWrapper, reactFlowInstance])
+
     return <div style={{width: '100%', height: '100%', display: 'flex'}}>
-        {addDialogVisible && <AddNodeDialog onClose={onHideAddDialog}/> }
+        {addDialogVisible && <AddNodeDialog onClose={onHideAddDialog} onAdd={onAddNode}/> }
         <NodeEventsContext.Provider value={nodeEvents}>
             <ReactFlow
                 ref={reactFlowWrapper}
@@ -111,8 +130,6 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
                 snapGrid={[10, 10]}
                 snapToGrid={true}
                 elementsSelectable={true}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
                 onNodeDragStop={onNodesChanged}
                 style={{display: 'flex'}}
 

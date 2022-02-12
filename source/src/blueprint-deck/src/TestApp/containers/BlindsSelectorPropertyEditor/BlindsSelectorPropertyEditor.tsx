@@ -12,13 +12,12 @@ export const InternalEditor = ({property,value,setValue}: PropertyEditorElementP
 
 
     return (
-        <LabeledComponent label={property.name}>
+        <LabeledComponent label={"Blinds"}>
             <>
-                <input className={"blinds-selector_input"} type="text" value={value} onChange={(e)=>setValue(e.target.value)} list="blinds-list"/>
-                <datalist id="blinds-list">
-                    <option value="Rollo Küche"/>
-                    <option value="Rollo Wintergarten"/>
-                </datalist>
+                <select className={"blinds-selector_select"} value={value} onChange={(e)=>setValue(e.target.value)}>
+                    <option className={"blinds-selector_option"} value={123}>Rollo Küche</option>
+                    <option className={"blinds-selector_option"} value={1234}>Rollo Wintergarten</option>
+                </select>
             </>
         </LabeledComponent>
     )

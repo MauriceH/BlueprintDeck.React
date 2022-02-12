@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import "./App.css";
 import {BlueprintDeck} from "../BlueprintDeck";
 import {NodeTypes} from "../nodes/createElements";
 import {BlueprintNodeData} from "../model/NodeData";
 import {BaseNode} from "../nodes/BaseNode";
-import {TopBarActiveButton} from "./components/TopBarButton";
+import {TopBarActiveButton, TopBarButton} from "./components/TopBarButton";
 import CodeSolidIco from './components/code-solid.svg'
 import {JsonDesignEditor} from "./components/JsonDesignEditor";
 import {BluePrintRegistry, NodePropertyEditors, PropertyTypeEditors} from "../model/BluePrintRegistry";
@@ -21,7 +21,7 @@ const myPropertyTypesEditors: PropertyTypeEditors = {
     "System.TimeSpana": BlindsSelectorPropertyEditor
 }
 
-const myNodePropertyEditors : NodePropertyEditors = {
+const myNodePropertyEditors: NodePropertyEditors = {
     "BlindsActor.BlindsId": BlindsSelectorPropertyEditor
 }
 
@@ -37,37 +37,51 @@ function App() {
     //
     // }, [design])
 
-    useEffect(()=>{
-        const data = localStorage.getItem("REGISTRY")
-        if(data == null) return;
-        const registry = JSON.parse(data) as BluePrintRegistry;
-        setRegistry(registry);
-        // fetch("http://localhost:15000/api/Blueprint/registry")
-        //     .then(response=>response.json() )
-        //     .then(data => {
-        //         const newRegistry =  (data as BluePrintRegistry);
-        //         localStorage.setItem("REGISTRY", JSON.stringify(newRegistry))
-        //         setRegistry(newRegistry);
-        //     })
+    const loadRegistryFromStock = () => {
+
+    }
+
+    const fetchNewRegistry = useCallback(() => {
+        fetch("http://localhost:15000/api/Blueprint/registry")
+            .then(response => response.json())
+            .then(data => {
+                const newRegistry = (data as BluePrintRegistry);
+                localStorage.setItem("REGISTRY", JSON.stringify(newRegistry))
+                setRegistry(newRegistry);
+            })
     }, [setRegistry])
 
-    useEffect(()=>{
-        if(registry == null) return;
-        const data = localStorage.getItem("DESIGN")
-        if(data == null) return;
+    const loadDesignFromStock = () => {
+
+    }
+
+    const fetchNewDesign = useCallback(() => {
+        fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
+            .then(response => response.json())
+            .then(data => {
+                console.log('data', data);
+                const newDesign = (data as Blueprint);
+                localStorage.setItem("DESIGN", JSON.stringify(newDesign))
+                setDesign(newDesign);
+            })
+    }, [setDesign])
+
+    useEffect(() => {
+        let data = localStorage.getItem("REGISTRY")
+        if (data == null) return;
+        const registry = JSON.parse(data) as BluePrintRegistry;
+        setRegistry(registry);
+        if (registry == null) return;
+        data = localStorage.getItem("DESIGN")
+        if (data == null) return;
         const design = JSON.parse(data) as Blueprint;
         setDesign(design);
-        // fetch("http://localhost:15000/api/Blueprint/blueprints/d3017ce7-4904-4acb-8437-a5ad52df054f")
-        //     .then(response=>response.json() )
-        //     .then(data => {
-        //         console.log('data', data);
-        //         const newDesign =  (data as Blueprint);
-        //         localStorage.setItem("DESIGN", JSON.stringify(newDesign))
-        //         setDesign(newDesign);
-        //     })
-    }, [registry, setDesign])
 
-    if(design == null) return <div>Loading</div>
+    }, [setRegistry, setDesign])
+
+
+    if (registry == null) return <div>No registry</div>
+    if (design == null) return <div>No design</div>
 
     return (
         <div className="App" style={{display: 'flex', flexDirection: 'column'}}>
@@ -80,7 +94,11 @@ function App() {
                 padding: '0px 20px'
             }}>
                 <span style={{padding: '0px 20px 0px 0px'}}>BlueprintDeck TestApp</span>
-                <div style={{flex: '1 0 auto'}} />
+                <div style={{flex: '1 0 auto'}}/>
+                <TopBarButton onClick={() => fetchNewDesign}> Load Design from Server</TopBarButton>
+                <div style={{width: '15px'}}/>
+                <TopBarButton onClick={() => fetchNewRegistry}> Load Registry from Server</TopBarButton>
+                <div style={{width: '15px'}}/>
                 <TopBarActiveButton active={showJson} onClick={() => setShowJson(!showJson)}>
                     <img src={CodeSolidIco}
                          style={{

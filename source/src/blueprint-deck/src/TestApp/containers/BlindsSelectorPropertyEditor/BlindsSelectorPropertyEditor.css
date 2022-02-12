@@ -1,37 +1,18 @@
-Label {
-    display: block;
-    font-weight: bold;
-}
-
-.property-value > Label {
-    width: 80px;
-    display: inline-block;
-    text-align: left;
-    line-height: 16pt;
-}
-
-.property-value {
-    font-size: 0.9em;
-}
-
-.text-input {
-    border: 0;
-    border-bottom: 1px solid #282c34 ;
-}
-.text-input:focus {
-    outline: 0;
-}
-
-.blinds-selector_input {
+.blinds-selector_select {
     flex: 1 0 auto;
     border: 0;
     border-bottom: solid 1px #DADADA;
-    line-height: 25px;
+    line-height: 35px;
     padding: 2px 5px;
     font-size: 10.5pt;
     word-wrap: break-word;
     color: #494949;
 }
-.blinds-selector_input:focus {
+.blinds-selector_select:focus {
     outline: 0;
+}
+
+.blinds-selector_option {
+    background-color: #FFFFFF;
+    height: 35px;
 }

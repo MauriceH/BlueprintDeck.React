@@ -70,13 +70,12 @@ export const BaseNode: FC<BaseNodeProps> = ({
         });
 
     return (
-        <div {...divProps} className={"baseNode"}>
+        <div {...divProps} className={"baseNode node_" + node.data?.type}>
             <div className={"portContainer leftPortContainer"}>
                 {inputs}
             </div>
             <div className={"contentContainer"}>
                 <NodeTitle label={node.data?.label ?? "Node"}/>
-                {JSON.stringify(node.data?.properties)}
                 {children}
             </div>
             <div className={"portContainer rightPortContainer"}>

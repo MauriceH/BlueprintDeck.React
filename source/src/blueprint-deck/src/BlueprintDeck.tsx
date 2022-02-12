@@ -8,7 +8,7 @@ import {addRegistryTypeReferences, NodePropertyEditors, PropertyTypeEditors} fro
 import {
     NodePropertyEditorsContext,
     PropertyTypeEditorsContext
-} from "./side-panel/node-preferences/PropertyTypeEditorsContext";
+} from "./NodeArea/PropertyTypeEditorsContext";
 
 export interface BlueprintDeckOptions extends NodeAreaOptions {
     propertyTypeEditors?: PropertyTypeEditors

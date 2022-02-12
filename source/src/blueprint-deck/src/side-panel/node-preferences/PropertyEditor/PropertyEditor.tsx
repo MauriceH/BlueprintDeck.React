@@ -3,6 +3,7 @@ import {BlueprintNodeData} from "../../../model/NodeData";
 import './PropertyEditor.css'
 import {RegistryProperty} from "../../../model/BluePrintRegistry";
 import {camelize} from "../../../shared/camelize";
+import {useUpdateNodeInternals} from "react-flow-renderer";
 
 
 export type PropertyEditorElementProps = {property: RegistryProperty, value: string, setValue: (val: string) => any, registryTypeName: string}
@@ -13,6 +14,7 @@ export type PropertyEditorComponentProps = PropertyEditorProps & { Element: Func
 
 export const PropertyEditor = ({node, property, Element}:PropertyEditorComponentProps) => {
     const [value, setValue] = useState<string>("")
+    const updateNode = useUpdateNodeInternals();
 
     useEffect(()=>{
         if(node.data?.properties == null) return;
@@ -28,7 +30,8 @@ export const PropertyEditor = ({node, property, Element}:PropertyEditorComponent
         }
         node.data.properties[camelize(property.name)] = value;
         setValue(value)
-    },[node,setValue]);
+        updateNode(node.id)
+    },[node,setValue,updateNode]);
 
     const registryTypeName = property.dataType!.typeName
 
