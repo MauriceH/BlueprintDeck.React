@@ -1,0 +1,10 @@
+.port-preference {
+    min-height: 25px;
+}
+.port-preference-unconnected {
+    color: #a4a4a4;
+}
+
+.port-preference-connected-container {
+    color: #5d5c5c;
+}

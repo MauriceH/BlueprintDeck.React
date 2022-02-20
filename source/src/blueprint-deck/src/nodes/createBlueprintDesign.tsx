@@ -10,7 +10,8 @@ export const createBlueprintDesign = (elements: Elements<NodeData>) => {
                 id: n.id,
                 location: {x: n.position?.x ?? 0, y: n.position?.y ?? 0},
                 nodeTypeKey: n.data?.type!,
-                title: n.data?.label!
+                title: n.data?.label!,
+                properties: n.data?.properties
             }
             return result;
         }),

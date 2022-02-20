@@ -139,7 +139,7 @@ export const NodeArea = ({registry, design, nodeTypes, onDesignChanged}: NodeAre
                 <Background variant={BackgroundVariant.Dots} gap={10}/>
                 <StackableSidePanel>
                     <AddNodeButton onClick={onShowAddDialog}/>
-                    <PreferencePanel />
+                    <PreferencePanel elements={elements} />
                 </StackableSidePanel>
             </ReactFlow>
         </NodeEventsContext.Provider>

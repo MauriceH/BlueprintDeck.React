@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {DialogBackground} from "../shared/components/DialogBackground";
 import './AddNodeDialog.css'
-import {PoolContainer} from "../side-panel/node-pool/PoolContainer/PoolContainer";
-import {PoolEntry} from "../side-panel/node-pool/PoolEntry/PoolEntry";
+import {PoolContainer} from "../node-pool/PoolContainer/PoolContainer";
+import {PoolEntry} from "../node-pool/PoolEntry/PoolEntry";
 import {RegistryContext} from "./RegistryContext";
 import {RegistryNode} from "../model/BluePrintRegistry";
 

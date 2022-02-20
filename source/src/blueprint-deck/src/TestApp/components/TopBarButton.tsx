@@ -8,15 +8,15 @@ export const TopBarButton = ({children,onClick}: PropsWithChildren<ClickableButt
 
     return <div style={{
         minWidth: 38,
-        minHeight: 38,
+        minHeight: 34,
         backgroundColor: '#ffffff33',
         border: 0,
-        borderRadius: '0.5rem',
+        borderRadius: '0.2rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: "center",
         cursor: 'pointer',
-        boxShadow: '0 0 0.5rem rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 0 0.5rem rgba(0, 0, 0, 0.2)',
         padding: '0px 18px'
     }} onClick={onClick}>{children}</div>
 }
@@ -32,18 +32,18 @@ export const TopBarActiveButton = ({children, onClick, active }: PropsWithChildr
 
     return <div style={{
         minWidth: 36,
-        minHeight: 36,
+        minHeight: 34,
         backgroundColor: '#ffffff33',
         border: 0,
-        borderRadius: '0.5rem',
+        borderRadius: '0.2rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: "center",
         cursor: 'pointer',
         color: '#FFF',
         userSelect: 'none',
-        padding: '0px 5px',
-        boxShadow: '0 0 0.5rem rgba(0, 0, 0, 0.3)',
+        padding: '0px 8px',
+        boxShadow: '0 0 0.5rem rgba(0, 0, 0, 0.2)',
         ...activeStyle
     }} onClick={onClick}>{children}</div>
 }
